@@ -192,8 +192,6 @@ sage wallet connect --type cast
 sage doctor
 
 # Publish a library
-sage library scaffold-manifest
-sage library lint manifest.json
 sage library push manifest.json --pin</code></pre>
           </div>
           <div class="code-example">
@@ -201,13 +199,9 @@ sage library push manifest.json --pin</code></pre>
             <pre><code># Start HTTP MCP server for AI agents
 sage mcp start
 
-# Or run stdio server for Claude Desktop
-node packages/cli/src/mcp-server-stdio.js
 
-# Available MCP Tools:
-# - search_onchain_prompts
-# - list_subdaos
-# - get_library_manifests</code></pre>
+# Or run stdio server for Claude Desktop
+node packages/cli/src/mcp-server-stdio.js</code></pre>
           </div>
         </div>
         <div class="cta-centered">
