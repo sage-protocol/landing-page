@@ -242,7 +242,10 @@ main {
 
 .hero h1 {
   margin-bottom: var(--space-3);
-  color: rgb(198, 124, 93);
+  background: linear-gradient(135deg, rgb(198, 124, 93) 0%, rgb(69, 43, 33) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .hero-description {
