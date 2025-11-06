@@ -481,7 +481,7 @@ section h2 {
 /* Features grid */
 .features {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: var(--space-3);
   max-width: 1000px;
   margin: 0 auto;
@@ -545,7 +545,7 @@ section h2 {
 /* Steps */
 .steps {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--space-3);
 }
 
@@ -611,7 +611,7 @@ section h2 {
 /* Differences */
 .differences {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: var(--space-4);
   max-width: 1100px;
   margin: 0 auto;
@@ -702,7 +702,7 @@ section h2 {
 
 .get-started-content {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: var(--space-4);
   margin-bottom: var(--space-5);
 }
