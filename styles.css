@@ -92,7 +92,7 @@ body {
 }
 
 h1, h2, h3, h4 {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-weight: 600;
   line-height: 1.2;
   color: hsl(var(--color-foreground));
@@ -170,6 +170,7 @@ p {
   min-width: 40px;
   display: block;
   flex-shrink: 0;
+  border-radius: 8px;
 }
 
 .wordmark {
@@ -818,6 +819,7 @@ section h2 {
   min-width: 32px;
   display: block;
   flex-shrink: 0;
+  border-radius: 6px;
 }
 
 .wordmark-small {
