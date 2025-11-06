@@ -242,10 +242,7 @@ main {
 
 .hero h1 {
   margin-bottom: var(--space-3);
-  background: linear-gradient(135deg, hsl(var(--color-foreground)) 0%, hsl(var(--color-primary)) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: rgb(198, 124, 93);
 }
 
 .hero-description {
@@ -481,7 +478,7 @@ section h2 {
 /* Features grid */
 .features {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: var(--space-3);
   max-width: 1000px;
   margin: 0 auto;
@@ -611,7 +608,7 @@ section h2 {
 /* Differences */
 .differences {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: var(--space-4);
   max-width: 1100px;
   margin: 0 auto;
@@ -702,7 +699,7 @@ section h2 {
 
 .get-started-content {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: var(--space-4);
   margin-bottom: var(--space-5);
 }
