@@ -997,7 +997,8 @@ section h2 {
 
   .logo {
     height: 32px;
-    width: 32px;
+    width: auto;
+    min-width: 32px;
   }
 
   .wordmark {
