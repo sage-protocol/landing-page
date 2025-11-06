@@ -481,7 +481,7 @@ section h2 {
 /* Features grid */
 .features {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--space-3);
   max-width: 1000px;
   margin: 0 auto;
