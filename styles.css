@@ -153,7 +153,7 @@ p {
 .brand {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: var(--space-1);
   font-weight: 600;
   color: hsl(var(--color-foreground));
   text-decoration: none;
@@ -212,7 +212,7 @@ main {
 
 /* Hero section */
 .hero {
-  padding: clamp(3rem, 8vw, 6rem) 0;
+  padding: clamp(1.5rem, 4vw, 3rem) 0;
   text-align: center;
 }
 
@@ -489,11 +489,10 @@ section h2 {
 
 .feature-card {
   background: hsl(var(--color-card));
-  border: 1px solid hsl(var(--color-border) / 0.6);
   border-radius: var(--card-radius);
   padding: var(--card-padding);
   transition: all var(--transition-base);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
   position: relative;
   overflow: hidden;
 }
@@ -552,11 +551,10 @@ section h2 {
 
 .step {
   background: hsl(var(--color-card));
-  border: 1px solid hsl(var(--color-border) / 0.6);
   border-radius: var(--card-radius);
   padding: var(--card-padding);
   position: relative;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
   transition: all var(--transition-base);
   overflow: hidden;
 }
@@ -621,10 +619,9 @@ section h2 {
 
 .difference-card {
   background: hsl(var(--color-card));
-  border: 1px solid hsl(var(--color-border) / 0.6);
   border-radius: var(--card-radius);
   padding: var(--space-5);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
   transition: all var(--transition-base);
   position: relative;
   overflow: hidden;
@@ -804,7 +801,7 @@ section h2 {
 .footer-brand {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: var(--space-1);
   text-decoration: none;
   transition: opacity var(--transition-base);
 }
