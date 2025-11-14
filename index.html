@@ -76,31 +76,43 @@
       <section class="why-sage">
         <h2>Why Sage?</h2>
         <p class="section-intro">
-          AI models evolve weekly; agent instructions rarely keep pace.
+          AI models evolve quickly. The prompts that drive them usually do not. They sit in chats, private docs, and local files where no one can see what works, what fails, or who created the best version.
         </p>
+        <p class="section-intro">
+          Sage exists so communities can govern, discover, and reward the prompts that actually move the needle.
+        </p>
+
         <div class="features">
           <div class="feature-card">
-            <div class="feature-icon">🧠</div>
-            <h3>Shared Memory for Agents</h3>
+            <div class="feature-icon">🏛️</div>
+            <h3>Prompts as Public Goods</h3>
             <p>
-              No more ad hoc copies. Sage provides a <strong>governed, tamper-evident version</strong> that
-              humans and agents can trust together.
+              Sage treats prompts as shared infrastructure. Governance participants capture value through their own use of prompts that are aligned with their needs. Approved prompts are cultivated as <strong>public goods and kept in versioned libraries</strong> with clear provenance.
+            </p>
+            <p style="margin-top: 0.5rem; font-size: 0.9em;">
+              Communities can fork, adapt, and reuse these skills while preserving attribution and trust. Your best instructions stop living in a single notebook and start living as a governed resource for your entire network.
             </p>
           </div>
+
           <div class="feature-card">
-            <div class="feature-icon">🔄</div>
-            <h3>Dynamic Instructions</h3>
+            <div class="feature-icon">📊</div>
+            <h3>A Network that Reveals High Value Prompts</h3>
             <p>
-              Markets and models evolve weekly. Ship <strong>governed updates</strong> so your agent instructions
-              never fall behind.
+              High value prompts are hard to identify in isolation. They maximize subjective value per token per user and that signal only really emerges at network scale. Sage uses <strong>incentives and transparent usage</strong> to surface what works.
+            </p>
+            <p style="margin-top: 0.5rem; font-size: 0.9em;">
+              When a prompt is used, value moves and the network records that interaction. Libraries become an archive of outcomes. Success and failure both compound so teams can study both and improve faster.
             </p>
           </div>
+
           <div class="feature-card">
-            <div class="feature-icon">💎</div>
-            <h3>Compounding Incentives</h3>
+            <div class="feature-icon">🔓</div>
+            <h3>Permissionless Collaboration with Provenance</h3>
             <p>
-              Contributors keep <strong>attribution through boosts, bounties, and premiums</strong>. Communities
-              pool funds, reward experiments, and reinvest learnings so <strong>collective intelligence compounds</strong>.
+              Sage is built for permissionless collaboration around AI skills, including Claude and other agent platforms. Anyone can propose and refine new skills. Communities approve, adopt, and standardize them for agents to use. <strong>On-chain attribution</strong> records which wallets deliver high value skills.
+            </p>
+            <p style="margin-top: 0.5rem; font-size: 0.9em;">
+              Value accrues to the network and to the aligned communities that cultivate it. Contributors keep credit and upside for the intelligence they help create.
             </p>
           </div>
         </div>
@@ -108,37 +120,56 @@
 
       <section class="how-it-works">
         <h2>How It Works</h2>
+        <p class="section-intro">
+          A simple path from a single prompt idea to a governed, discoverable agent skill.
+        </p>
         <div class="steps">
           <div class="step">
             <div class="step-number">1</div>
             <h3>Publish</h3>
             <p>
-              Push manifests and prompt files to IPFS. Immutable CIDs establish the authorized
-              set of agent instructions.
+              Push manifests and prompt files to IPFS. Immutable CIDs define the authorized set of instructions for a given skill or library, ensuring transparent changes and clear versioning.
             </p>
+            <pre style="margin-top: 1rem; background: #f5f5f5; padding: 1rem; border-radius: 0.5rem; font-size: 0.85em; overflow-x: auto;"><code># Connect your wallet
+sage wallet connect --type cast
+sage doctor
+
+# Publish a library
+sage library push manifest.json --pin</code></pre>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>Propose</h3>
             <p>
-              Each manifest is one governance proposal in your SubDAO. Vote, queue, and execute
-              through a Timelock.
+              Each manifest becomes one governance proposal in your SubDAO. Members can review diffs and context, discuss tradeoffs, vote under your chosen rules, and queue and execute through a timelock.
+            </p>
+            <p style="margin-top: 0.5rem; font-size: 0.9em;">
+              Upgrades happen in the open and are always tied to a concrete manifest.
             </p>
           </div>
           <div class="step">
             <div class="step-number">3</div>
             <h3>Discover</h3>
             <p>
-              Agents, the CLI, and web app read via subgraph first and fall back to RPC for a
-              consistent view.
+              Once approved, the Prompt Registry marks the new CID as canonical for that library. Agents, the CLI, and the web app read via subgraph first, fall back to RPC when needed, and always resolve to a consistent view of the approved instructions.
+            </p>
+            <p style="margin-top: 0.5rem; font-size: 0.9em;">
+              Sage acts as a discovery engine for agent capabilities, so new skills and improvements are always easy to find and safe to reuse.
             </p>
           </div>
           <div class="step">
             <div class="step-number">4</div>
             <h3>Use</h3>
             <p>
-              MCP tools return content by CID so agents can orchestrate tasks with the
-              community-approved version.
+              MCP tools return content by CID so agents can orchestrate tasks with the community-approved version.
+            </p>
+            <pre style="margin-top: 1rem; background: #f5f5f5; padding: 1rem; border-radius: 0.5rem; font-size: 0.85em; overflow-x: auto;"><code># Start HTTP MCP server for AI agents
+sage mcp start
+
+# Or run stdio server for Claude Desktop
+node packages/cli/src/mcp-server-stdio.js</code></pre>
+            <p style="margin-top: 0.5rem; font-size: 0.9em;">
+              Every interaction feeds back into the system through value exchange and recorded usage. The network learns from its own consumption and turns context into an economic and informational flywheel.
             </p>
           </div>
         </div>
@@ -150,25 +181,28 @@
           <div class="difference-card">
             <h3>🏛️ Community-Governed Intelligence</h3>
             <p>
-              Each community creates a <strong>SubDAO with its own library, treasury, and upgrade cadence</strong>.
-              <strong>Manifest-first governance</strong> lets communities ship <strong>atomic updates</strong> to entire libraries in one proposal,
-              keeping distributed intelligence transparent and aligned.
+              Each community creates a SubDAO with its own library, treasury, and upgrade cadence. <strong>Manifest-first governance</strong> keeps changes atomic and auditable. A single proposal can upgrade an entire library.
+            </p>
+            <p style="margin-top: 0.5rem; font-size: 0.9em;">
+              Distributed intelligence stays transparent and aligned with the people who rely on it. Your agents become extensions of your community and its process.
             </p>
           </div>
           <div class="difference-card">
             <h3>🤖 Agent-Native Discovery</h3>
             <p>
-              Built for AI from the ground up. The <strong>MCP server</strong> exposes search, fetch, and manifest validation
-              so agents <strong>query Sage like an API</strong>—no brittle middleware, just <strong>direct integration</strong> with
-              Claude Desktop and other AI tools.
+              Sage is built for agents from day one. The MCP server exposes search, fetch, and manifest validation so agents query Sage like any other API. Direct integration with tools like Claude Desktop and hosted agents.
+            </p>
+            <p style="margin-top: 0.5rem; font-size: 0.9em;">
+              A clean discovery layer lets agents find and pull the skills your community has approved directly.
             </p>
           </div>
           <div class="difference-card">
             <h3>💎 Incentives for Learning</h3>
             <p>
-              <strong>Boosts, bounties, and premiums</strong> route value directly to contributors. SubDAO treasuries
-              become <strong>self-improving capital that compounds</strong>, rewarding experiments and reinvesting
-              learnings into collective intelligence.
+              Sage builds a network that actually learns. Boosts, bounties, and premiums route value directly to contributors. SubDAO treasuries become self-improving capital that funds experiments.
+            </p>
+            <p style="margin-top: 0.5rem; font-size: 0.9em;">
+              Valuable prompts are upgraded, adopted, and rewarded at the protocol level. Prompt creators refine skills. Communities approve and adopt them. Every interaction moves tokens and teaches the network what works next.
             </p>
           </div>
         </div>

@@ -478,6 +478,12 @@ section h2 {
   line-height: 1.7;
 }
 
+/* Left-align multi-sentence intro text in why-sage section */
+.why-sage .section-intro {
+  text-align: left;
+  max-width: 800px;
+}
+
 /* Features grid */
 .features {
   display: grid;
