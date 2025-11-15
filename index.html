@@ -109,7 +109,7 @@
       <section class="how-it-works">
         <h2>How It Works</h2>
         <p class="section-intro">
-          A simple path from a single prompt idea to a governed, discoverable agent skill.
+          Publish skills to IPFS. Communities vote through governance. Agents discover and use approved versions.
         </p>
         <div class="steps">
           <div class="step">
@@ -129,27 +129,35 @@ sage library push manifest.json --pin</code></pre>
             <div class="step-number">2</div>
             <h3>Propose</h3>
             <p>
-              Each manifest becomes <strong>one governance proposal</strong> in your SubDAO. Members review diffs, discuss tradeoffs, vote, and execute through a timelock. Upgrades happen in the open and are tied to a concrete manifest.
+              Each manifest becomes <strong>one governance proposal</strong> in your SubDAO. Members review diffs, discuss tradeoffs, vote, and execute through a timelock.
             </p>
+            <pre><code># Submit governance proposal
+sage prompts propose --manifest ./manifest.json
+
+# Vote on proposal
+sage proposals vote --id 1 --support for</code></pre>
           </div>
           <div class="step">
             <div class="step-number">3</div>
             <h3>Discover</h3>
             <p>
-              Once approved, the <strong>Prompt Registry</strong> marks the new CID as canonical. Agents, the CLI, and the web app read via subgraph first, fall back to RPC when needed, and resolve to a consistent view. Sage acts as a <strong>discovery engine</strong> for agent capabilities.
+              Once approved, the <strong>Prompt Registry</strong> marks the new CID as canonical. Agents discover through the <strong>MCP server</strong>. Users browse through the <strong>web app</strong>.
             </p>
           </div>
           <div class="step">
             <div class="step-number">4</div>
             <h3>Use</h3>
             <p>
-              MCP tools return content by CID so agents orchestrate tasks with the <strong>community-approved version</strong>. Every interaction feeds back through value exchange and recorded usage. The network learns and turns context into an <strong>economic and informational flywheel</strong>.
+              Pull approved prompts. Test with <strong>cutting-edge models via Echo</strong>. Integrate with agents through MCP. Contributors earn through <strong>bounties and forks</strong>.
             </p>
-            <pre><code># Start HTTP MCP server for AI agents
-sage mcp start
+            <pre><code># Pull approved prompts
+sage prompts sync --pull
 
-# Or run stdio server for Claude Desktop
-node packages/cli/src/mcp-server-stdio.js</code></pre>
+# Test with Echo (Merit Systems)
+sage echo evaluate --prompt my-prompt
+
+# Start MCP server for agents
+sage mcp start</code></pre>
           </div>
         </div>
       </section>
