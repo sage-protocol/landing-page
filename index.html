@@ -109,7 +109,7 @@
       <section class="how-it-works">
         <h2>How It Works</h2>
         <p class="section-intro">
-          Publish skills to IPFS. Communities vote through governance. Agents discover and use approved versions.
+          Contributors publish prompt manifests to IPFS, receiving immutable CIDs that establish clear provenance. Communities vote on governance proposals to approve updates through timelocked execution for safety. Agents discover and fetch approved versions through the MCP server, ensuring they always use community-validated instructions.
         </p>
         <div class="steps">
           <div class="step">
@@ -154,7 +154,7 @@ sage proposals vote --id 1 --support for</code></pre>
 sage prompts sync --pull
 
 # Test with Echo (Merit Systems)
-sage echo evaluate --prompt my-prompt
+sage prompt test my-prompt --user "test query"
 
 # Start MCP server for agents
 sage mcp start</code></pre>
