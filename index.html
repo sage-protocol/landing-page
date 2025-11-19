@@ -116,45 +116,44 @@
             <div class="step-number">1</div>
             <h3>Publish</h3>
             <p>
-              Push manifests and prompt files to IPFS. <strong>Immutable CIDs</strong> define the authorized set of instructions, ensuring transparent changes and clear versioning.
+              Push skills to IPFS. <strong>Immutable CIDs</strong> define the authorized set of instructions, ensuring transparent changes and clear versioning.
             </p>
-            <pre><code># Connect your wallet
-sage wallet connect --type cast
-sage doctor
+            <pre><code># Initialize workspace
+sage skills init
 
-# Publish a library
-sage library push manifest.json --pin</code></pre>
+# Publish skills
+sage skills publish my-skill --dest personal</code></pre>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>Propose</h3>
+            <h3>Govern</h3>
             <p>
-              Each manifest becomes <strong>one governance proposal</strong> in your SubDAO. Members review diffs, discuss tradeoffs, vote, and execute through a timelock.
+              For team or community libraries, publishing creates <strong>governance proposals</strong>. Members review diffs, discuss tradeoffs, vote, and execute through a timelock.
             </p>
-            <pre><code># Submit governance proposal
-sage prompts propose --manifest ./manifest.json
+            <pre><code># Publish to team library (creates Safe tx)
+sage skills publish my-skill --dest team
 
-# Vote on proposal
-sage proposals vote --id 1 --support for</code></pre>
+# Publish to community (creates proposal)
+sage skills publish my-skill --dest community</code></pre>
           </div>
           <div class="step">
             <div class="step-number">3</div>
             <h3>Discover</h3>
             <p>
-              Once approved, the <strong>Prompt Registry</strong> marks the new CID as canonical. Agents discover through the <strong>MCP server</strong>. Users browse through the <strong>web app</strong>.
+              Once approved, skills become discoverable. <strong>Browse creator profiles</strong>, filter and search with <strong>visual diff views</strong>, share via <strong>Farcaster Frames</strong>, and export with <strong>"Copy for Claude/Cursor"</strong> buttons. Agents discover through the <strong>MCP server</strong>.
             </p>
           </div>
           <div class="step">
             <div class="step-number">4</div>
             <h3>Use</h3>
             <p>
-              Pull approved prompts. Test with <strong>cutting-edge models via Echo</strong>. Integrate with agents through MCP. Contributors earn through <strong>bounties and forks</strong>.
+              Import skills from the registry. Test with <strong>cutting-edge models via Echo</strong>. Integrate with agents through MCP. Contributors earn through <strong>bounties and forks</strong>.
             </p>
-            <pre><code># Pull approved prompts
-sage prompts sync --pull
+            <pre><code># Import skills from registry
+sage skills import ipfs://Qm...
 
-# Test with Echo (Merit Systems)
-sage prompt test my-prompt --user "test query"
+# Try skill locally
+sage skills try my-skill --as cursor
 
 # Start MCP server for agents
 sage mcp start</code></pre>
@@ -190,19 +189,21 @@ sage mcp start</code></pre>
         <h2>Get Started</h2>
         <div class="get-started-content">
           <div class="code-example">
-            <h3>Connect & Publish</h3>
-            <pre><code># Connect your wallet
-sage wallet connect --type cast
-sage doctor
+            <h3>Initialize & Publish</h3>
+            <pre><code># Initialize workspace
+sage skills init
 
-# Publish a library
-sage library push manifest.json --pin</code></pre>
+# Create and iterate locally
+sage skills list
+sage skills try my-skill --as cursor
+
+# Publish skills
+sage skills publish my-skill --dest personal</code></pre>
           </div>
           <div class="code-example">
             <h3>Run MCP Server</h3>
             <pre><code># Start HTTP MCP server for AI agents
 sage mcp start
-
 
 # Or run stdio server for Claude Desktop
 node packages/cli/src/mcp-server-stdio.js</code></pre>
