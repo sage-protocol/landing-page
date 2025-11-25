@@ -121,8 +121,8 @@
             <pre><code># Initialize workspace
 sage prompts init
 
-# Publish skills
-sage prompts publish my-skill --dest personal</code></pre>
+# Publish to personal library
+sage prompts publish --dest personal</code></pre>
           </div>
           <div class="step">
             <div class="step-number">2</div>
@@ -130,11 +130,12 @@ sage prompts publish my-skill --dest personal</code></pre>
             <p>
               For team or community libraries, publishing creates <strong>governance proposals</strong>. Members review diffs, discuss tradeoffs, vote, and execute through a timelock.
             </p>
-            <pre><code># Publish to team library (creates Safe tx)
-sage prompts publish my-skill --dest team
+            <pre><code># Publish to DAO (creates proposal)
+sage prompts publish --subdao 0xDAO
 
-# Publish to community (creates proposal)
-sage prompts publish my-skill --dest community</code></pre>
+# Vote and execute
+sage proposals vote 1 for
+sage proposals execute 1</code></pre>
           </div>
           <div class="step">
             <div class="step-number">3</div>
@@ -147,15 +148,15 @@ sage prompts publish my-skill --dest community</code></pre>
             <div class="step-number">4</div>
             <h3>Use</h3>
             <p>
-              Import skills from the registry. Test with <strong>cutting-edge models via Echo</strong>. Integrate with agents through MCP. Contributors earn through <strong>bounties and forks</strong>.
+              Import skills from the registry. Test locally. Integrate with agents through MCP. Contributors earn through <strong>bounties and forks</strong>.
             </p>
-            <pre><code># Import skills from registry
-sage prompts import ipfs://Qm...
+            <pre><code># Pull from on-chain
+sage prompts pull my-skill
 
-# Try skill locally
-sage prompts try my-skill --as cursor
+# Test locally
+sage prompts try my-skill
 
-# Start MCP server for agents
+# Start MCP server
 sage mcp start</code></pre>
           </div>
         </div>
@@ -189,24 +190,22 @@ sage mcp start</code></pre>
         <h2>Get Started</h2>
         <div class="get-started-content">
           <div class="code-example">
-            <h3>Initialize & Publish</h3>
-            <pre><code># Initialize workspace
-sage prompts init
+            <h3>Setup & Discover</h3>
+            <pre><code># Connect wallet
+sage wizard
+sage doctor
 
-# Create and iterate locally
-sage prompts list
-sage prompts try my-skill --as cursor
-
-# Publish skills
-sage prompts publish my-skill --dest personal</code></pre>
+# Pull skills from registry
+sage prompts pull my-skill</code></pre>
           </div>
           <div class="code-example">
-            <h3>Run MCP Server</h3>
-            <pre><code># Start HTTP MCP server for AI agents
-sage mcp start
+            <h3>Publish & Serve</h3>
+            <pre><code># Publish your skills
+sage prompts init
+sage prompts publish --dest personal
 
-# Or run stdio server for Claude Desktop
-node packages/cli/src/mcp-server-stdio.js</code></pre>
+# Start MCP server
+sage mcp start</code></pre>
           </div>
         </div>
         <div class="cta-centered">
