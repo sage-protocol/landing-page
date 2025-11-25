@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Sage Protocol - Community-Governed Agent Intelligence</title>
-    <meta name="description" content="The first permissionless protocol for incentivized agent context sharing. Publish to IPFS, govern with SubDAOs, and let agents discover trusted instructions." />
+    <meta name="description" content="The first permissionless protocol for incentivized agent context sharing. Publish to IPFS, govern with DAOs, and let agents discover trusted instructions." />
     <link rel="icon" type="image/svg+xml" href="icon.svg" />
     <link rel="alternate icon" type="image/png" href="logo.png" />
     <link rel="apple-touch-icon" href="logo.png" />
@@ -109,7 +109,7 @@
       <section class="how-it-works">
         <h2>How It Works</h2>
         <p class="section-intro">
-          Contributors publish prompt manifests to IPFS, receiving immutable CIDs that establish clear provenance. Libraries can be personal (individual), team (small group), or community (governed SubDAO), each with different approval mechanisms. Agents discover and fetch approved versions through the MCP server, ensuring they always use community-validated instructions.
+          Contributors publish prompt manifests to IPFS, receiving immutable CIDs that establish clear provenance. Libraries can be personal (individual), team (small group), or community (governed DAO), each with different approval mechanisms. Agents discover and fetch approved versions through the MCP server, ensuring they always use community-validated instructions.
         </p>
         <div class="steps">
           <div class="step">
@@ -119,10 +119,10 @@
               Push skills to IPFS. <strong>Immutable CIDs</strong> define the authorized set of instructions, ensuring transparent changes and clear versioning.
             </p>
             <pre><code># Initialize workspace
-sage skills init
+sage prompts init
 
 # Publish skills
-sage skills publish my-skill --dest personal</code></pre>
+sage prompts publish my-skill --dest personal</code></pre>
           </div>
           <div class="step">
             <div class="step-number">2</div>
@@ -131,10 +131,10 @@ sage skills publish my-skill --dest personal</code></pre>
               For team or community libraries, publishing creates <strong>governance proposals</strong>. Members review diffs, discuss tradeoffs, vote, and execute through a timelock.
             </p>
             <pre><code># Publish to team library (creates Safe tx)
-sage skills publish my-skill --dest team
+sage prompts publish my-skill --dest team
 
 # Publish to community (creates proposal)
-sage skills publish my-skill --dest community</code></pre>
+sage prompts publish my-skill --dest community</code></pre>
           </div>
           <div class="step">
             <div class="step-number">3</div>
@@ -150,10 +150,10 @@ sage skills publish my-skill --dest community</code></pre>
               Import skills from the registry. Test with <strong>cutting-edge models via Echo</strong>. Integrate with agents through MCP. Contributors earn through <strong>bounties and forks</strong>.
             </p>
             <pre><code># Import skills from registry
-sage skills import ipfs://Qm...
+sage prompts import ipfs://Qm...
 
 # Try skill locally
-sage skills try my-skill --as cursor
+sage prompts try my-skill --as cursor
 
 # Start MCP server for agents
 sage mcp start</code></pre>
@@ -167,7 +167,7 @@ sage mcp start</code></pre>
           <div class="difference-card">
             <h3>🏛️ Community-Governed Intelligence</h3>
             <p>
-              Communities create <strong>SubDAOs with their own library, treasury, and upgrade cadence</strong>. Manifest-first governance keeps changes atomic and auditable. A single proposal can upgrade an entire library. Your agents become extensions of your community's process.
+              Communities create <strong>DAOs with their own library, treasury, and upgrade cadence</strong>. Manifest-first governance keeps changes atomic and auditable. A single proposal can upgrade an entire library. Your agents become extensions of your community's process.
             </p>
           </div>
           <div class="difference-card">
@@ -179,7 +179,7 @@ sage mcp start</code></pre>
           <div class="difference-card">
             <h3>💎 Incentives for Learning</h3>
             <p>
-              <strong>Boosts, bounties, and premiums</strong> route value directly to contributors. SubDAO treasuries become <strong>self-improving capital</strong> that funds experiments. Valuable prompts are upgraded, adopted, and rewarded. Every interaction teaches the network what works next.
+              <strong>Boosts, bounties, and premiums</strong> route value directly to contributors. DAO treasuries become <strong>self-improving capital</strong> that funds experiments. Valuable prompts are upgraded, adopted, and rewarded. Every interaction teaches the network what works next.
             </p>
           </div>
         </div>
@@ -191,14 +191,14 @@ sage mcp start</code></pre>
           <div class="code-example">
             <h3>Initialize & Publish</h3>
             <pre><code># Initialize workspace
-sage skills init
+sage prompts init
 
 # Create and iterate locally
-sage skills list
-sage skills try my-skill --as cursor
+sage prompts list
+sage prompts try my-skill --as cursor
 
 # Publish skills
-sage skills publish my-skill --dest personal</code></pre>
+sage prompts publish my-skill --dest personal</code></pre>
           </div>
           <div class="code-example">
             <h3>Run MCP Server</h3>
