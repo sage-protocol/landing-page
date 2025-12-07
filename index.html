@@ -109,7 +109,7 @@
       <section class="how-it-works">
         <h2>How It Works</h2>
         <p class="section-intro">
-          <strong>Contributors</strong> publish <strong>prompt manifests</strong> to <strong>IPFS</strong>, receiving <strong>immutable CIDs</strong> that establish clear provenance. Libraries can be <strong>personal</strong> (individual), <strong>team</strong> (small group), or <strong>community (governed DAO)</strong>, each with different approval mechanisms. Agents discover and fetch approved versions through the <strong>MCP server</strong>, ensuring they always use <strong>community-validated instructions</strong>.
+          Start in your editor. The CLI turns markdown skills into signed manifests, publishes them to IPFS, and routes upgrades through DAOs. Agents — and the <strong>Sage Protocol skill for Claude</strong> — then discover and run the approved versions via the MCP server.
         </p>
         <div class="steps">
           <div class="step">
@@ -143,12 +143,12 @@ sage proposals execute 1 --dao 0xDAO</code></pre>
             <p>
               Once approved, skills become discoverable. <strong>Browse creator profiles</strong>, filter and search with <strong>visual diff views</strong>, share via <strong>Farcaster Frames</strong>, and export with <strong>"Copy for Claude/Cursor"</strong> buttons. Agents discover through the <strong>MCP server</strong>.
             </p>
-            <pre><code># Discover new skills
-sage discover search "research agent"
-sage discover trending
+            <pre><code># Discover DAOs and their skills
+sage dao list
+sage dao info 0xDAO
 
-# Pull a discovered skill into your workspace
-sage prompts pull my-skill</code></pre>
+# Pull a DAO-approved skill into your workspace
+sage prompts import my-skill --from 0xDAO</code></pre>
           </div>
           <div class="step">
             <div class="step-number">4</div>
