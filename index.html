@@ -128,14 +128,14 @@ sage prompts publish --dest personal</code></pre>
             <div class="step-number">2</div>
             <h3>Govern</h3>
             <p>
-              For team or community libraries, publishing creates <strong>governance proposals</strong>. Members review diffs, discuss tradeoffs, vote, and execute through a timelock.
+              For team or community libraries, publishing creates <strong>governance proposals</strong>. Members review diffs, discuss tradeoffs, vote, and execute through a timelock. Delegation always happens on the base voting token (SXXX / stake token); the protocol computes effective votes, including any NFT multipliers, under the hood.
             </p>
             <pre><code># Publish to DAO (creates proposal)
-sage prompts publish --subdao 0xDAO
+sage prompts publish --dao 0xDAO
 
 # Vote and execute
-sage proposals vote 1 for
-sage proposals execute 1</code></pre>
+sage proposals vote 1 for --dao 0xDAO
+sage proposals execute 1 --dao 0xDAO</code></pre>
           </div>
           <div class="step">
             <div class="step-number">3</div>
@@ -168,7 +168,7 @@ sage mcp start</code></pre>
           <div class="difference-card">
             <h3>🏛️ Community-Governed Intelligence</h3>
             <p>
-              Communities create <strong>DAOs with their own library, treasury, and upgrade cadence</strong>. Manifest-first governance keeps changes atomic and auditable. A single proposal can upgrade an entire library. Your agents become extensions of your community's process.
+              Communities create <strong>DAOs with their own library, treasury, and upgrade cadence</strong>. Manifest-first governance keeps changes atomic and auditable. A single proposal can upgrade an entire library. Your agents become extensions of your community's process. DAOs can optionally enable <strong>SXXX-backed voting multipliers</strong> via per-DAO VotingMultiplierNFT tiers and MultipliedVotes wrappers, so early contributors can be favored within their DAO without changing global SXXX supply or forcing additional token purchases.
             </p>
           </div>
           <div class="difference-card">
@@ -194,6 +194,9 @@ sage mcp start</code></pre>
             <pre><code># Connect wallet
 sage wizard
 sage doctor
+
+# Create a community DAO with sensible defaults
+sage dao create-playbook --playbook community --name "My DAO"
 
 # Pull skills from registry
 sage prompts pull my-skill</code></pre>
