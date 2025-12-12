@@ -113,61 +113,52 @@
       <section class="how-it-works">
         <h2>How It Works</h2>
         <p class="section-intro">
-          Start in your editor. The CLI turns markdown skills into signed manifests, publishes them to IPFS, and routes upgrades through DAOs. Once changes are approved, agents and the <strong>Sage Protocol skill for Claude</strong> discover and run those versions via the MCP server.
+          Burn SXXX to mint a DAO with its own prompt library, choose a governance configuration, and then use bounties, boosts, treasuries, and NFT multipliers to turn prompt improvement into a self-aligning, agent-native economy.
         </p>
         <div class="steps">
           <div class="step">
             <div class="step-number">1</div>
-            <h3>Publish</h3>
+            <h3>Launch a DAO & Library</h3>
             <p>
-              Push skills to IPFS. <strong>Immutable CIDs</strong> define the authorized set of instructions, ensuring transparent changes and clear versioning.
+              Create a SubDAO with its own library, treasury, and governance profile. The factory wires in a prompt registry and LibraryRegistry so every DAO has a place to publish and upgrade agent skills.
             </p>
-            <pre><code># Initialize workspace
-sage prompts init
-
-# Publish to personal library
-sage prompts publish --dest personal</code></pre>
+            <pre><code># Launch a community DAO + library
+sage dao create-playbook --playbook community --name "My Agent DAO"</code></pre>
           </div>
           <div class="step">
             <div class="step-number">2</div>
-            <h3>Govern</h3>
+            <h3>Publish Skills & Manifests</h3>
             <p>
-              For team or community libraries, publishing creates <strong>governance proposals</strong>. Members review diffs, discuss tradeoffs, vote, and execute through a timelock. Delegation always happens on the base voting token (SXXX / stake token); the protocol computes effective votes, including any NFT multipliers, under the hood.
+              Start in your editor. The Sage CLI and skill turn markdown prompts into signed manifests, publish them to IPFS, and register new versions against your DAO’s library so agents have a canonical source of truth.
             </p>
-            <pre><code># Publish to DAO (creates proposal)
-sage prompts publish --dao 0xDAO
-
-# Vote and execute
-sage proposals vote 1 for --dao 0xDAO
-sage proposals execute 1 --dao 0xDAO</code></pre>
+            <pre><code># Initialize workspace and publish
+sage prompts init
+sage project scaffold --from-dir ./prompts
+sage project push manifest.json --subdao 0xDAO</code></pre>
           </div>
           <div class="step">
             <div class="step-number">3</div>
-            <h3>Discover</h3>
+            <h3>Govern & Incentivize</h3>
             <p>
-              Once approved, skills become discoverable. <strong>Browse creator profiles</strong>, filter and search with <strong>visual diff views</strong>, share via <strong>Farcaster Frames</strong>, and export with <strong>"Copy for Claude/Cursor"</strong> buttons. Agents discover through the <strong>MCP server</strong>.
+              Upgrades flow through governance. Members vote on manifest changes, fund improvements from the DAO treasury, attach boosts and bounties, and optionally use voting-multiplier NFTs so high-trust contributors carry more weight.
             </p>
-            <pre><code># Discover DAOs and their skills
-sage dao list
-sage dao info 0xDAO
-
-# Pull a DAO-approved skill into your workspace
-sage prompts import my-skill --from 0xDAO</code></pre>
+            <pre><code># Fund and reward improvements
+sage bounty create --subdao 0xDAO --reward 100
+sage boost create --subdao 0xDAO --proposal-id 1
+sage nft tier create --dao 0xDAO --name "Contributor" --multiplier 150</code></pre>
           </div>
           <div class="step">
             <div class="step-number">4</div>
-            <h3>Use</h3>
+            <h3>Run Agents Against Canonical Context</h3>
             <p>
-              Import skills from the registry. Test locally. Integrate with agents through MCP. Contributors earn through <strong>bounties and forks</strong>.
+              Long-running agents use the CLI, SDK, and MCP server to fetch the latest approved skills and system prompts, then feed governance signals back into the network by proposing upgrades as they discover better patterns.
             </p>
-            <pre><code># Pull from on-chain
-sage prompts pull my-skill
+            <pre><code># Start MCP server for agents
+sage mcp start
 
-# Test locally
-sage prompts try my-skill
-
-# Start MCP server
-sage mcp start</code></pre>
+# Inside your agent code (SDK)
+const lib = await sdk.library.getLatestLibrary({ provider, registry, subdao });
+// Use lib.manifestCID as canonical agent context</code></pre>
           </div>
         </div>
       </section>
@@ -184,7 +175,7 @@ sage mcp start</code></pre>
           <div class="difference-card">
             <h3>🤖 Agent-Native Discovery</h3>
             <p>
-              Built for agents from day one. The <strong>MCP server</strong> exposes search, fetch, and validation so agents query Sage like any API. Direct integration with <strong>Claude Desktop and hosted agents</strong> lets them find and pull approved skills directly.
+              Built for agents as first-class users. Long-running agents use the Sage CLI and SDK to scan libraries, propose upgrades, and submit governance transactions, while the <strong>MCP server</strong> exposes search and fetch so runtimes can pull canonical skills into their own loops.
             </p>
           </div>
           <div class="difference-card">
