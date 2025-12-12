@@ -249,8 +249,8 @@ main {
 }
 
 .hero-description {
-  font-size: clamp(1.05rem, 2.5vw, 1.25rem);
-  color: hsl(var(--color-foreground) / 0.8);
+  font-size: 1.15rem; /* match .section-intro */
+  color: hsl(var(--color-foreground) / 0.8); /* match .section-intro */
   margin-bottom: var(--space-5);
   max-width: 680px;
   margin-left: auto;
