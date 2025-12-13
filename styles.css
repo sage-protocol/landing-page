@@ -484,6 +484,8 @@ section h2 {
 .get-started .section-intro {
   text-align: left;
   max-width: 800px;
+  margin-left: 0;
+  margin-right: auto;
 }
 
 /* Features grid */
