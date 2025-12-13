@@ -121,19 +121,19 @@
             <p>
               Create a SubDAO with its own library, treasury, and governance profile. The factory wires in a prompt registry and LibraryRegistry so every DAO has a place to publish and upgrade agent skills.
             </p>
-            <pre><code># Launch a community DAO + library
-sage dao create-playbook --playbook community --name "My Agent DAO"</code></pre>
+            <pre><code># One command: scan prompts → upload → create DAO → register
+sage library quickstart --name "My Agent DAO" --from-dir ./prompts</code></pre>
           </div>
           <div class="step">
             <div class="step-number">2</div>
             <h3>Publish Skills & Manifests</h3>
             <p>
-              Start in your editor. The Sage CLI and skill turn markdown prompts into signed manifests, publish them to IPFS, and register new versions against your DAO’s library so agents have a canonical source of truth.
+              Start in your editor. The Sage CLI and skill turn markdown prompts into signed manifests, publish them to IPFS, and register new versions against your DAO's library so agents have a canonical source of truth.
             </p>
-            <pre><code># Initialize workspace and publish
+            <pre><code># Create prompts, publish to DAO
 sage prompts init
-sage project scaffold --from-dir ./prompts
-sage project push manifest.json --subdao 0xDAO</code></pre>
+sage prompts new --type prompt --name "code-reviewer"
+sage prompts publish --yes</code></pre>
           </div>
           <div class="step">
             <div class="step-number">3</div>
@@ -142,9 +142,9 @@ sage project push manifest.json --subdao 0xDAO</code></pre>
               Upgrades flow through governance. Members vote on manifest changes, fund improvements from the DAO treasury, attach boosts and bounties, and optionally use voting-multiplier NFTs so high-trust contributors carry more weight.
             </p>
             <pre><code># Fund and reward improvements
-sage bounty create --subdao 0xDAO --reward 100
-sage boost create --subdao 0xDAO --proposal-id 1
-sage nft tier create --dao 0xDAO --name "Contributor" --multiplier 150</code></pre>
+sage bounty create --title "Improve edge case handling" --reward 100 -y
+sage boost create --proposal-id 1 --amount 50 --yes
+sage nft tier create --name "Founding Member" --multiplier 200 -y</code></pre>
           </div>
           <div class="step">
             <div class="step-number">4</div>
@@ -152,12 +152,14 @@ sage nft tier create --dao 0xDAO --name "Contributor" --multiplier 150</code></p
             <p>
               Long-running agents use the CLI, SDK, and MCP server to fetch the latest approved skills and system prompts, then feed governance signals back into the network by proposing upgrades as they discover better patterns.
             </p>
-            <pre><code># Start MCP server for agents
+            <pre><code># Generate AGENTS.md for Claude Code
+sage prompts generate-agents --from-dao 0xDAO
+
+# Start MCP server for agent discovery
 sage mcp start
 
-# Inside your agent code (SDK)
-const lib = await sdk.library.getLatestLibrary({ provider, registry, subdao });
-// Use lib.manifestCID as canonical agent context</code></pre>
+# SDK: fetch canonical context
+const lib = await sdk.library.getLatestLibrary({ provider, registry, subdao });</code></pre>
           </div>
         </div>
       </section>
@@ -190,22 +192,22 @@ const lib = await sdk.library.getLatestLibrary({ provider, registry, subdao });
         <h2>Get Started</h2>
         <div class="get-started-content">
           <div class="code-example">
-            <h3>Setup & Discover</h3>
-            <pre><code># Connect wallet
-sage wizard
-sage doctor
+            <h3>Create & Publish</h3>
+            <pre><code># One command: create DAO with prompts
+sage library quickstart --name "My Library" --from-dir ./prompts
 
-# Create a community DAO with sensible defaults
-sage dao create-playbook --playbook community --name "My DAO"
-
-# Pull skills from registry
-sage prompts pull my-skill</code></pre>
+# Or step-by-step
+sage prompts init
+sage prompts new --type prompt --name "my-skill"
+sage prompts publish --yes</code></pre>
           </div>
           <div class="code-example">
-            <h3>Publish & Serve</h3>
-            <pre><code># Publish your skills
-sage prompts init
-sage prompts publish --dest personal
+            <h3>Agent Integration</h3>
+            <pre><code># Generate AGENTS.md for Claude Code
+sage prompts generate-agents
+
+# Pull skills from a DAO
+sage prompts pull my-skill --from 0xDAO
 
 # Start MCP server
 sage mcp start</code></pre>
