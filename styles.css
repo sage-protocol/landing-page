@@ -246,6 +246,16 @@ main {
   background-clip: text;
 }
 
+.hero-subtitle {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 600;
+  background: linear-gradient(135deg, rgb(198, 124, 93) 0%, rgb(69, 43, 33) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: var(--space-4);
+}
+
 .hero-description {
   font-size: 1.15rem; /* match .section-intro */
   color: hsl(var(--color-foreground) / 0.8); /* match .section-intro */
@@ -920,6 +930,7 @@ section h2 {
 
   .features,
   .steps,
+  .steps-grid,
   .differences {
     grid-template-columns: 1fr;
     gap: var(--space-3);
