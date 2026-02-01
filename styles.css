@@ -212,7 +212,7 @@ main {
 
 /* Hero section */
 .hero {
-  padding: clamp(1.5rem, 4vw, 3rem) 0;
+  padding: var(--space-8) 0 var(--space-6);
   text-align: center;
 }
 
