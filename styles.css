@@ -468,11 +468,11 @@ section h2 {
   line-height: 1.7;
 }
 
-/* Left-align multi-sentence intro text in why-sage and how-it-works sections */
-.why-sage .section-intro,
+/* Center intro text in how-it-works section */
 .how-it-works .section-intro {
-  text-align: left;
-  max-width: 800px;
+  text-align: center;
+  max-width: 680px;
+  margin-bottom: var(--space-5);
 }
 
 /* Features grid */
