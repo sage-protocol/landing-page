@@ -221,22 +221,20 @@ main {
   margin: 0 auto;
 }
 
-.badge {
-  display: inline-block;
-  background: hsl(var(--color-card));
-  border: 1px solid hsl(var(--color-primary) / 0.3);
-  color: hsl(var(--color-primary));
-  padding: 0.5rem 1rem;
-  border-radius: 999px;
-  font-size: 0.875rem;
-  font-weight: 600;
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
   margin-bottom: var(--space-3);
-  box-shadow: var(--shadow-sm);
-  transition: all var(--transition-base);
 }
 
-.badge:hover {
-  box-shadow: var(--shadow-base);
+.hero h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1.2;
+  font-weight: 500;
+  color: hsl(var(--color-foreground) / 0.75);
+  margin-bottom: var(--space-4);
+}
   transform: translateY(-1px);
 }
 
@@ -554,6 +552,7 @@ section h2 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: var(--space-4);
+  text-align: center;
 }
 
 .step {
