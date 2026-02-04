@@ -307,6 +307,32 @@ sage prompts publish --subdao my-skills-library --library-id writing --yes
 sage library sync
 ```
 
+### Publishing Skills to Existing DAOs
+
+**CRITICAL: Use `--exec` for operator-owned DAOs (personal/team governance)**
+
+```bash
+# Step 1: Create and push library to IPFS
+sage library create my-library
+sage library skill add ./path/to/skill
+sage library push
+
+# Step 2: Check DAO governance type
+sage governance dao info 0x<subdao-address>
+# Look for: "governance mode: personal" or "team" or "community"
+
+# Step 3: Promote to DAO
+# For PERSONAL/TEAM governance (operator-owned):
+sage library promote . --dao 0x<address> --collection default --exec
+# ↑ The --exec flag is REQUIRED for immediate execution
+
+# For COMMUNITY governance (requires voting):
+sage library promote . --dao 0x<address> --collection default
+# Then wait for community vote + manual execution
+```
+
+**Common Mistake:** Using `sage governance proposals create` for operator-owned DAOs. This creates a proposal that gets stuck waiting for voting/execution. Use `sage library promote --exec` instead for instant publishing.
+
 ### Governance Types
 
 | Type | Governance | Use Case |
