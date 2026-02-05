@@ -261,11 +261,129 @@ AI-assisted prompt creation:
 
 ## Governance
 
+Governance management for DAOs, proposals, and automated execution.
+
+### Proposals
+
+| Command | Description |
+|---------|-------------|
+| `sage governance proposals list --dao 0x...` | List proposals for a DAO |
+| `sage governance proposals create --proposal-type library --dao 0x... --cid Qm... --library default "Title"` | Create library update proposal |
+| `sage governance proposals vote <id> for|against|abstain` | Vote on a proposal |
+| `sage governance proposals execute <id> --dao 0x...` | Execute a passed proposal |
+
+### DAOs
+
+| Command | Description |
+|---------|-------------|
+| `sage governance dao list` | List DAOs from on-chain registry |
+| `sage governance dao info <address>` | Show DAO details + your voting multiplier |
+| `sage governance dao discover` | Discover DAOs from IPFS worker (fast, cached) |
+| `sage governance dao create --name "My DAO" --governance personal|team|community` | Create a SubDAO (requires SXXX burn) |
+
+### Operator (Auto-execution)
+
+Requires daemon running: `sage daemon start`
+
+| Command | Description |
+|---------|-------------|
+| `sage governance operator track <id> --dao 0x... -d "description"` | Track proposal for auto-execution |
+| `sage governance operator list` | List tracked proposals |
+| `sage governance operator untrack <id>` | Stop tracking a proposal |
+| `sage governance operator status` | Show scheduler status |
+| `sage governance operator queue <id>` | Manually queue a Succeeded proposal |
+| `sage governance operator execute <id>` | Manually execute a Queued proposal |
+
+### Timelock
+
+| Command | Description |
+|---------|-------------|
+| `sage governance timelock status --timelock 0x... --operation-id 0x...` | Check operation status |
+| `sage governance timelock execute --timelock 0x... --operation-id 0x... --target 0x... --data 0x...` | Execute ready operation |
+
+### MCP Tools
+
 | Tool | Description |
 |------|-------------|
 | `list_subdaos` | List all DAOs |
 | `list_proposals` | View governance proposals |
 | `get_voting_power` | Check voting power for an account |
+
+---
+
+## Tips
+
+Query on-chain tip activity via the Sage subgraph.
+
+| Command | Description |
+|---------|-------------|
+| `sage tips list --recipient 0x...` | List recent tips to a recipient |
+| `sage tips list --payer 0x... --type dao` | List DAO tips from a payer |
+| `sage tips list --limit 50` | List tips (max 100) |
+| `sage tips list --skip 25` | Skip N results (pagination) |
+| `sage tips stats --recipient 0x...` | Show aggregated tip stats |
+| `sage tips stats --recipient 0x... --type creator` | Stats for creator tips only |
+
+---
+
+## Bounties
+
+Query on-chain bounty activity via the Sage subgraph.
+
+| Command | Description |
+|---------|-------------|
+| `sage bounties list` | List all bounties |
+| `sage bounties list --subdao 0x...` | List bounties for a specific SubDAO |
+| `sage bounties list --limit 100` | List bounties (max 200) |
+| `sage bounties pending-library-additions` | List bounty winners pending library merge |
+| `sage bounties pending-library-additions --status merged` | Show merged library additions |
+| `sage bounties pending-library-additions --status rejected` | Show rejected library additions |
+
+---
+
+## Chat
+
+Real-time chat rooms for DAOs, proposals, and global channels.
+
+| Command | Description |
+|---------|-------------|
+| `sage chat list` | List active chat rooms |
+| `sage chat list --room-type dao` | List only DAO rooms |
+| `sage chat join global:general` | Join interactive IRC-style chat (TUI) |
+| `sage chat history <room_id>` | Get message history (default: 50 messages) |
+| `sage chat history <room_id> --limit 100` | Get more messages |
+| `sage chat send <room_id> "message"` | Send a message |
+| `sage chat send <room_id> "message" --reply-to <id>` | Reply to a message |
+| `sage chat watch <room_id>` | Watch room for notifications |
+| `sage chat unwatch <room_id>` | Stop watching room |
+| `sage chat watched` | List watched rooms with unread counts |
+| `sage chat watched --json` | JSON output |
+| `sage chat read <room_id>` | Mark room as read |
+| `sage chat info <room_id>` | Show room details |
+
+**Room ID formats:**
+- `global:<channel>` - Global channels (e.g., `global:general`, `global:agents`)
+- `dao:<address>` - General DAO discussion
+- `dao:<address>:proposal:<id>` - Per-proposal discussion
+- `dao:<address>:lib:<id>` - DAO library discussion
+
+---
+
+## Social
+
+Manage your social graph by following users and DAOs.
+
+| Command | Description |
+|---------|-------------|
+| `sage social follow user vitalik` | Follow by username |
+| `sage social follow user 0x...` | Follow by address |
+| `sage social follow dao 0x...` | Follow a DAO |
+| `sage social follow user vitalik --yes` | Skip confirmation |
+| `sage social unfollow user 0x...` | Stop following |
+| `sage social unfollow dao 0x...` | Unfollow a DAO |
+| `sage social following` | List who you're following |
+| `sage social following --json` | JSON output |
+| `sage social following --limit 50` | Custom limit |
 
 ---
 
@@ -390,9 +508,12 @@ sage wallet faucet                     # Request testnet SXXX tokens
 sage wallet connect -w privy           # Connect via OAuth (no key paste)
 
 # Chat
+sage chat list                         # List chat rooms
 sage chat join                         # Join global:general
 sage chat join global:agents           # Join agent room
 sage chat send "global:agents" "msg"   # Send message
+sage chat watch global:agents          # Watch room for notifications
+sage chat watched                      # List watched rooms
 
 # Skills & Prompts
 sage skill suggest "build an API"      # Get skill suggestions
@@ -402,6 +523,22 @@ sage library quickstart --name "My Lib" --from-dir ./prompts
 # MCP
 sage mcp start                         # Start MCP server
 sage mcp hub status                    # Check hub status
+
+# Governance & DAOs
+sage governance dao list               # List DAOs
+sage governance dao info 0x...         # Show DAO details
+sage governance dao create --name "DAO" --governance personal  # Create SubDAO
+sage governance proposals list --dao 0x...  # List proposals
+sage governance proposals vote 1 for   # Vote on proposal
+sage governance operator track 1 --dao 0x...  # Enable auto-execution
+
+# Tips, Bounties & Social
+sage tips list --recipient 0x...       # List tips
+sage tips stats --recipient 0x...      # Tip statistics
+sage bounties list                     # List bounties
+sage bounties pending-library-additions  # Pending library merges
+sage social follow user vitalik        # Follow a user
+sage social following                  # List following
 ```
 
 ---
