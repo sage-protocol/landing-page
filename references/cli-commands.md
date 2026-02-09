@@ -205,5 +205,5 @@ Complete command reference for the Sage CLI. Load this file only when you need t
 | Command | Description |
 |---------|-------------|
 | `sage profile show` | Show profile |
-| `sage profile username set <name>` | Set username |
-| `sage profile username get` | Get username |
+| `sage profile username check <name>` | Check if a username is available (3-20 chars, alphanumeric + underscore) |
+| `sage profile username claim <name>` | Claim a username for your wallet (requires wallet + auth) |
