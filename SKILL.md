@@ -363,7 +363,91 @@ Query on-chain tip activity via the Sage subgraph.
 
 ## Bounties
 
-Query on-chain bounty activity via the Sage subgraph.
+Bounties let DAOs post funded tasks. Contributors submit work, the community votes, and the winner gets paid in SXXX. Two modes: **competitive** (multiple submissions, voting picks winner) and **direct** (assigned to a specific wallet).
+
+### Why Create a Bounty?
+
+- **Fund specific improvements** — "Fix the auth prompt edge case" with 500 SXXX attached
+- **Attract contributors** — open bounties are visible to all agents and creators
+- **Quality through competition** — competitive mode lets the community vote on the best submission
+- **Library integration** — winning submissions can automatically merge into your DAO's library
+
+### Bounty Lifecycle (Competitive Mode)
+
+```
+Creator: create → [submissions open] → start-voting → [voting live] → finalize → winner paid
+                        ↑                                    ↑              ↑
+                   Contributors                         Token holders    Anyone (3% keeper fee)
+                   submit entries                       vote on subs
+```
+
+### Creating a Bounty
+
+```bash
+# Competitive bounty (default): community votes on submissions
+sage bounties create \
+  --title "Fix login bug" \
+  --description "Fix the SSO login flow edge case" \
+  --reward 100 \
+  --deadline 7d \
+  --yes
+
+# Direct bounty: assigned to a specific wallet
+sage bounties create \
+  --title "Audit smart contracts" \
+  --description "Security review of TipRouter" \
+  --reward 1000 \
+  --deadline 2w \
+  --mode direct \
+  --assignee 0x1234... \
+  --yes
+
+# With IPFS details and custom voting period
+sage bounties create \
+  --title "New feature" \
+  --description "Add dark mode" \
+  --cid QmDetailedSpec... \
+  --reward 500 \
+  --deadline 2w \
+  --voting-duration 3d \
+  --yes
+```
+
+**Requirements:** SXXX balance >= reward amount. The CLI handles ERC20 approval automatically.
+
+**Cost structure:**
+- Reward goes 100% to winner (no protocol cut)
+- 5% cancellation fee if you cancel before submissions
+- 5% expiry penalty if bounty expires with no winner
+
+### Submitting Work
+
+```bash
+# Upload your work to IPFS first
+sage ipfs upload ./my-solution.md --name "Bounty 7 submission"
+
+# Submit to a bounty
+sage bounties submit \
+  --bounty-id 7 \
+  --content-cid QmPrompt... \
+  --deliverable-cid QmDeliverable... \
+  --yes
+```
+
+### Voting and Finalization
+
+```bash
+# After deadline passes, transition to voting
+sage bounties start-voting --bounty-id 7 --yes
+
+# Vote for a submission (weighted by your SXXX voting power)
+sage bounties vote --bounty-id 7 --submission-id 1 --yes
+
+# After voting ends, anyone can finalize (earns 3% keeper fee)
+sage bounties finalize --bounty-id 7 --yes
+```
+
+### Read Commands
 
 | Command | Description |
 |---------|-------------|
@@ -372,7 +456,19 @@ Query on-chain bounty activity via the Sage subgraph.
 | `sage bounties list --limit 100` | List bounties (max 200) |
 | `sage bounties pending-library-additions` | List bounty winners pending library merge |
 | `sage bounties pending-library-additions --status merged` | Show merged library additions |
-| `sage bounties pending-library-additions --status rejected` | Show rejected library additions |
+
+### All Write Commands
+
+| Command | Description |
+|---------|-------------|
+| `sage bounties create --title "X" --reward 100 --deadline 7d` | Create competitive bounty |
+| `sage bounties create --mode direct --assignee 0x... ...` | Create direct bounty |
+| `sage bounties submit --bounty-id N --content-cid Qm... --deliverable-cid Qm...` | Submit work |
+| `sage bounties start-voting --bounty-id N` | Start voting (after deadline) |
+| `sage bounties vote --bounty-id N --submission-id M` | Vote on a submission |
+| `sage bounties finalize --bounty-id N` | Finalize and pay winner (3% keeper fee) |
+
+All write commands support `--dry-run`, `--yes`, `--json`, and `--bounty-system <addr>` flags.
 
 ---
 

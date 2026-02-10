@@ -53,14 +53,30 @@ sage tips list --recipient 0x<your-address>    # Recent tips received
 
 ### 3. Bounties (Task-Based Rewards)
 
-DAOs post bounties for specific work. When you complete one:
-- **You receive: 100% of posted reward** (no protocol cut)
+DAOs post bounties for specific work. Two modes:
+- **Competitive**: multiple submissions, community votes on winner
+- **Direct**: assigned to a specific wallet, governance approves completion
+
+When you win:
+- **You receive: 100% of posted reward** (no protocol cut on bounties)
 - **Treasury matching: up to 30%** additional (governance-set)
+- **Keeper fee**: anyone who calls `finalize` earns 3% (incentivizes timely settlement)
 
 ```bash
+# Find and complete bounties
 sage bounties list                  # Find open bounties
 sage bounties list --subdao 0x...   # Bounties for a specific DAO
+
+# Submit your work
+sage bounties submit --bounty-id 7 --content-cid Qm... --deliverable-cid Qm... --yes
+
+# Create a bounty for your DAO
+sage bounties create --title "Fix auth bug" --reward 100 --deadline 7d --yes
 ```
+
+**Cost to create:** reward amount in SXXX (deposited on creation, paid to winner).
+**Cancellation fee:** 5% of deposit goes to treasury if cancelled before any submissions.
+**Expiry penalty:** 5% if bounty expires with no winner (incentivizes realistic deadlines).
 
 Matching caps prevent abuse:
 - Max 5 matched bounties per wallet per month

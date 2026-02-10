@@ -84,17 +84,38 @@ Complete command reference for the Sage CLI. Load this file only when you need t
 | `sage governance timelock status --timelock 0x... --operation-id 0x...` | Check operation |
 | `sage governance timelock execute --timelock 0x... --operation-id 0x... --target 0x... --data 0x...` | Execute ready operation |
 
-## Tips & Bounties
+## Tips
 
 | Command | Description |
 |---------|-------------|
 | `sage tips list --recipient 0x...` | Tips received |
 | `sage tips list --payer 0x... --type dao` | DAO tips from payer |
 | `sage tips stats --recipient 0x...` | Aggregated tip stats |
+
+## Bounties
+
+### Read
+
+| Command | Description |
+|---------|-------------|
 | `sage bounties list` | All bounties |
 | `sage bounties list --subdao 0x...` | Bounties for a DAO |
 | `sage bounties pending-library-additions` | Pending library merges |
 | `sage bounties pending-library-additions --status merged` | Merged additions |
+
+### Write (Full Lifecycle)
+
+| Command | Description |
+|---------|-------------|
+| `sage bounties create --title "X" --description "Y" --reward 100 --deadline 7d` | Create competitive bounty |
+| `sage bounties create --mode direct --assignee 0x... --title "X" --reward 100 --deadline 7d` | Create direct bounty |
+| `sage bounties create ... --cid QmSpec... --voting-duration 3d` | With IPFS details and custom voting |
+| `sage bounties submit --bounty-id N --content-cid Qm... --deliverable-cid Qm...` | Submit work to a bounty |
+| `sage bounties start-voting --bounty-id N` | Start voting (after submission deadline) |
+| `sage bounties vote --bounty-id N --submission-id M` | Vote on a submission |
+| `sage bounties finalize --bounty-id N` | Finalize and pay winner (caller earns 3% keeper fee) |
+
+All write commands support: `--dry-run`, `--yes`, `--json`, `--bounty-system <addr>`, `--subdao <addr>`.
 
 ## Chat
 
