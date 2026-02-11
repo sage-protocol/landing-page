@@ -25,7 +25,7 @@
   <link rel="icon" type="image/svg+xml" href="icon.svg" />
   <link rel="alternate icon" type="image/png" href="logo.png" />
   <link rel="apple-touch-icon" href="logo.png" />
-  <link rel="stylesheet" href="styles.css?v=2.5" />
+  <link rel="stylesheet" href="styles.css?v=3.1" />
 </head>
 
 <body>
@@ -67,7 +67,7 @@
           Skill file coming soon...
         </div>
         <div class="cta-row cta-centered">
-          <a class="btn btn-outline" href="https://app.sageprotocol.io" target="_blank" rel="noreferrer">Testnet
+          <a class="btn btn-sage" href="https://app.sageprotocol.io" target="_blank" rel="noreferrer">Testnet
             Access</a>
         </div>
       </div>
@@ -90,13 +90,13 @@
         </div>
 
         <div class="cta-row cta-centered">
-          <a class="btn btn-dark-outline" href="https://app.sageprotocol.io" target="_blank" rel="noreferrer">Testnet
+          <a class="btn btn-sage" href="https://app.sageprotocol.io" target="_blank" rel="noreferrer">Testnet
             Access</a>
         </div>
       </div>
     </section>
     <!-- ============ Stats ============ -->
-    <section class="stats-section">
+    <section class="stats-section agent-mode">
       <div class="stats-grid">
         <div class="stat-card">
           <div class="stat-number" id="stat-prompts">—</div>
@@ -134,11 +134,14 @@
     const cardHuman = document.getElementById('card-human');
     const cardAgent = document.getElementById('card-agent');
 
+    const statsSection = document.querySelector('.stats-section');
+
     function showHuman() {
       btnHuman.className = 'toggle-btn active-human';
       btnAgent.className = 'toggle-btn';
       cardHuman.classList.add('visible');
       cardAgent.classList.remove('visible');
+      statsSection.classList.remove('agent-mode');
     }
 
     function showAgent() {
@@ -146,6 +149,7 @@
       btnHuman.className = 'toggle-btn';
       cardAgent.classList.add('visible');
       cardHuman.classList.remove('visible');
+      statsSection.classList.add('agent-mode');
     }
 
     btnHuman.addEventListener('click', showHuman);
