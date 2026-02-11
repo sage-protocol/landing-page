@@ -338,7 +338,6 @@ main {
 .card-human .step-label {
   font-weight: 600;
   color: oklch(var(--brand-terracotta-400));
-  min-width: 80px;
   font-size: 0.875rem;
 }
 
@@ -380,7 +379,7 @@ main {
 
 .card-agent .step-item {
   display: flex;
-  gap: var(--space-2);
+  gap: var(--space-1);
   align-items: baseline;
 }
 
@@ -395,7 +394,6 @@ main {
 .card-agent .step-label {
   font-weight: 600;
   color: oklch(var(--brand-sage-400));
-  min-width: 70px;
   font-size: 0.875rem;
 }
 
@@ -456,8 +454,8 @@ main {
   padding: var(--space-1) var(--space-2);
   border-radius: 8px;
   font-family: var(--font-sans);
-  font-size: 0.875rem;
-  font-weight: 600;
+  font-size: 0.8125rem;
+  font-weight: 500;
   text-decoration: none;
   transition: all var(--transition);
   cursor: pointer;
