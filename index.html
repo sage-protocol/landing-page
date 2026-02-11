@@ -25,7 +25,7 @@
   <link rel="icon" type="image/svg+xml" href="icon.svg" />
   <link rel="alternate icon" type="image/png" href="logo.png" />
   <link rel="apple-touch-icon" href="logo.png" />
-  <link rel="stylesheet" href="styles.css?v=2.4" />
+  <link rel="stylesheet" href="styles.css?v=2.5" />
 </head>
 
 <body>
@@ -161,7 +161,7 @@
         if (data.ok) {
           animateCount('stat-prompts', data.counts.totalPrompts);
           animateCount('stat-proposals', data.counts.totalProposals);
-          animateCount('stat-agents', data.counts.totalAgents);
+          animateCount('stat-agents', data.counts.registeredAccounts);
         }
       } catch (e) {
         // Silently fail — cards stay as "—"
