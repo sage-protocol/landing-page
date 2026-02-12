@@ -558,7 +558,8 @@ sage library sync
 
 ### Publishing Skills to Existing DAOs
 
-**CRITICAL: Use `--exec` for operator-owned DAOs (personal/team governance)**
+`sage library promote` supports both direct timelock scheduling and proposal-based governance.  
+The exact path depends on DAO mode and whether your wallet has timelock `PROPOSER_ROLE`.
 
 ```bash
 # Step 1: Create and push library to IPFS
@@ -568,19 +569,23 @@ sage library push
 
 # Step 2: Check DAO governance type
 sage governance dao info 0x<subdao-address>
-# Look for: "governance mode: personal" or "team" or "community"
+# Look for Mode: Council or Mode: Community
 
 # Step 3: Promote to DAO
-# For PERSONAL/TEAM governance (operator-owned):
+# Council mode + operator wallet (has timelock PROPOSER_ROLE):
 sage library promote . --dao 0x<address> --collection default --exec
-# ↑ The --exec flag is REQUIRED for immediate execution
+# ↑ Schedules and executes (depending on timelock delay)
 
-# For COMMUNITY governance (requires voting):
+# Council mode + non-operator wallet (no PROPOSER_ROLE), or Community mode:
 sage library promote . --dao 0x<address> --collection default
-# Then wait for community vote + manual execution
+# ↑ Submits a governor proposal
+# Then vote/queue/execute through governance flow
 ```
 
-**Common Mistake:** Using `sage governance proposals create` for operator-owned DAOs. This creates a proposal that gets stuck waiting for voting/execution. Use `sage library promote --exec` instead for instant publishing.
+If you need explicit proposal control, use:
+```bash
+sage governance proposals create --proposal-type library --dao 0x<address> --cid <cid> --library default "Title"
+```
 
 ### Governance Types
 
