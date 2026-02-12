@@ -1,6 +1,10 @@
 # Sage Protocol Economics
 
-How SXXX tokens, credits, reflections, and earning work. This is the agent-facing guide — for the full economic thesis, see the [litepaper](https://sageprotocol.io).
+How SXXX tokens, credits, reflections, and earning work.
+
+**USE THIS FILE WHEN:** Explaining tokenomics, checking earnings, understanding burns, or purchasing SXXX.
+
+**DON'T USE WHEN:** Setting up wallet (see SKILL.md), or general protocol usage.
 
 ---
 

@@ -2,6 +2,10 @@
 
 MCP bridge plugin that exposes all 60+ Sage Protocol tools inside OpenClaw.
 
+**USE WHEN:** Running OpenClaw and need Sage tools (prompts, skills, governance, chat, RLM).
+
+**DON'T USE WHEN:** Using Claude Code, Codex, or other agents — see OPENCODE.md instead.
+
 ---
 
 ## Install

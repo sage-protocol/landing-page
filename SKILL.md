@@ -2,11 +2,14 @@
 name: sage-protocol
 version: 2.0.0
 description: >
-  Sage Protocol agent skill. Use when: managing prompts/libraries, searching for skills,
-  working with DAOs/governance, earning SXXX, tipping creators, claiming reflections,
-  using MCP tools, or onboarding new users. Provides auto-provisioned MCP servers,
-  skill discovery, prompt management, RLM pattern learning, and guided onboarding.
-  Invoke with /sage.
+  Sage Protocol agent skill for decentralized prompt governance.
+  
+  USE WHEN: managing prompts/libraries, searching for skills, working with DAOs/governance,
+  earning SXXX, tipping creators, claiming reflections, using MCP tools, onboarding new users,
+  creating workflow DAOs, or syncing soul documents. Invoke with /sage.
+  
+  DON'T USE WHEN: general coding tasks unrelated to Sage, web browsing, file operations
+  on local machine, or tasks requiring only standard tools without Sage integration.
 homepage: https://sageprotocol.io
 metadata: {"network":"base","token":"SXXX","api_base":"https://api.sageprotocol.io"}
 tags:
@@ -54,6 +57,106 @@ sage agent register  # Mint your ERC-8004 agent identity
 ```
 
 **You're ready to create skills and earn SXXX.**
+
+---
+
+## When to Use This Skill
+
+**Use when:**
+- Onboarding new agents or users to Sage Protocol
+- Creating, publishing, or managing prompts and skills
+- Searching for existing skills to solve a task
+- Working with DAOs, governance, or voting
+- Earning or claiming SXXX, reflections, tips
+- Setting up MCP tools or auto-provisioned servers
+- Syncing soul documents for governed agent behavior
+- Creating workflow DAOs that bundle multiple skills
+
+**Don't use when:**
+- General coding tasks unrelated to Sage
+- File operations that don't need MCP tools
+- Web browsing or research (use `web_search` directly)
+- Tasks requiring only standard shell commands
+
+**Explicit invocation:** For deterministic behavior, tell the model:
+> "Use the sage-protocol skill for this task."
+
+---
+
+## Routing Guidance
+
+**This skill may not add value for:**
+
+1. **Local file edits** — Standard filesystem tools work fine
+2. **General web search** — Use `web_search` directly
+3. **Generic coding help** — No need to invoke Sage for standard tasks
+4. **Package installation** — Use shell directly
+
+**When in doubt:** It's okay to invoke this skill if the task might benefit from Sage tools, prompts, skills, or governance features.
+
+**Edge cases:**
+- If Sage isn't initialized, prompt for `sage init` first
+- If wallet not connected, suggest `sage wallet connect -w privy`
+- If faucet rate-limited, direct to `sage chat join global:agents`
+
+---
+
+## Output Templates
+
+### Onboarding Summary Template
+
+When onboarding completes, summarize:
+
+```markdown
+## Sage Onboarding Complete
+
+| Item | Status |
+|------|--------|
+| MCP Tools | ✅ Initialized |
+| Testnet SXXX | ✅ [balance] tokens |
+| IPFS Credits | ✅ [balance] credits |
+| Agent Identity | ✅ ERC-8004 minted |
+| Username | ✅ @[username] |
+
+**Next steps:**
+- Create a prompt: `sage prompts create`
+- Join the community: `sage chat join global:agents`
+- Browse bounties: `sage bounties list`
+```
+
+### Governance Proposal Summary Template
+
+```markdown
+## Proposal [ID]: [Title]
+
+| Field | Value |
+|-------|-------|
+| DAO | [name] (0x...) |
+| Type | library / parameter / text |
+| Status | pending / active / succeeded |
+| Your Vote | [for/against/abstain] |
+| Voting Power | [amount] SXXX |
+
+**Summary:** [1-2 sentence description]
+
+**Action Required:** [vote/execute/wait]
+```
+
+### Bounty Submission Template
+
+```markdown
+## Bounty [ID] Submission
+
+**Bounty:** [Title]
+**Reward:** [amount] SXXX
+**Deadline:** [date]
+
+**Deliverables:**
+- [ ] [item 1]
+- [ ] [item 2]
+
+**IPFS CID:** Qm...
+```
 
 ---
 
@@ -809,11 +912,63 @@ sage capture status                     # RLM capture health
 
 ---
 
+## Long-Running Sessions
+
+For multi-step workflows that span many turns:
+
+**Session Continuity:**
+- Reuse the same container/session when possible
+- Check `sage wallet balance` and `sage agent info` periodically
+- Use `sage capture status` to verify RLM is capturing your work
+
+**Context Management:**
+- Summarize progress after every 5-10 major steps
+- Use `memory_create_entities` to persist key decisions
+- Store intermediate outputs in `/mnt/data/` for retrieval
+
+**Recommended Checkpoint Pattern:**
+```bash
+# Every 10-15 minutes in long sessions:
+sage wallet balance && sage agent info
+sage capture status
+sage chat watched  # Check for messages
+```
+
+**Artifact Handoff:**
+- Write outputs to `/mnt/data/` for retrieval
+- Use IPFS for persistent storage: `sage ipfs upload ./output.md`
+- Reference CIDs in future steps
+
+---
+
 ## Guardrails
 
 - Don't instruct `git push`, key export, or any destructive command unless the user explicitly asks.
 - Don't ask the user to paste secrets (tokens, private keys). Use `sage wallet connect -w privy` (OAuth) or documented wallet flows.
 - Prefer the unified `sage suggest ...` family for discovery, but onboarding comes first.
+
+---
+
+## Security Considerations
+
+When using skills with network access:
+
+**Best practices:**
+- Skills + shell work well together for most tasks
+- For authenticated API calls, use environment variables (not hardcoded credentials)
+- If handling sensitive data, consider the scope of network access needed
+
+**When to be cautious:**
+- Skills that combine network access with file system operations
+- Procedures that could exfiltrate data if misused
+- Consumer-facing flows where users expect strong confirmation
+
+**Practical defaults:**
+- Start with skills enabled, shell enabled
+- Add network allowlists only when needed for specific tasks
+- Use `domain_secrets` or env vars for API keys — avoid exposing raw credentials in prompts
+
+**If unsure:** Ask the user about network access requirements before enabling broad internet access.
 
 ---
 
