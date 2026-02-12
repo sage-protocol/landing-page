@@ -314,7 +314,54 @@ Governance management for DAOs, proposals, and automated execution.
 | `sage governance dao list` | List DAOs from on-chain registry |
 | `sage governance dao info <address>` | Show DAO details + your voting multiplier |
 | `sage governance dao discover` | Discover DAOs from IPFS worker (fast, cached) |
-| `sage governance dao create --name "My DAO" --governance personal|team|community` | Create a SubDAO (requires SXXX burn) |
+| `sage governance dao create --name "My DAO" --description "..." --governance personal\|team\|community` | Create a SubDAO (requires SXXX burn) |
+
+#### Creating a DAO
+
+**CRITICAL:** `--description` is required (1-200 characters). Without it, creation will revert.
+
+```bash
+# Create a personal DAO (instant updates, no voting)
+sage governance dao create \
+  --name "My Skills" \
+  --description "Personal skill library for AI development" \
+  --governance personal \
+  --burn 500
+
+# Create a team DAO (council multisig control)
+sage governance dao create \
+  --name "Team Library" \
+  --description "Shared team prompts and skills" \
+  --governance team \
+  --operator 0xSafeAddress... \
+  --burn 1500
+
+# Create a community DAO with embedded skills at creation
+sage governance dao create \
+  --name "Video Pipeline" \
+  --description "Complete video production workflow" \
+  --governance community \
+  --skill ./skills/video-workflow \
+  --skill ./skills/remotion-best-practices \
+  --burn 1500
+
+# Create a community DAO with pre-built manifest
+sage governance dao create \
+  --name "Web3 Security" \
+  --description "Security audit workflow suite" \
+  --governance community \
+  --manifest-cid bafkrei... \
+  --burn 1500
+```
+
+**Options:**
+- `--name` - DAO name (required)
+- `--description` - Description 1-200 chars (required)
+- `--governance` - `personal`, `team`, or `community`
+- `--burn` - SXXX to burn (default: on-chain minimum, typically 500)
+- `--operator` - Safe multisig or EOA for team/personal (required for team)
+- `--skill` - Local skill directory to include (repeatable, community only)
+- `--manifest-cid` - Pre-built IPFS manifest CID (conflicts with --skill)
 
 ### Operator (Auto-execution)
 
@@ -562,10 +609,11 @@ sage library sync
 The exact path depends on DAO mode and whether your wallet has timelock `PROPOSER_ROLE`.
 
 ```bash
-# Step 1: Create and push library to IPFS
+# Step 1: Create library and add skills
 sage library create my-library
-sage library skill add ./path/to/skill
-sage library push
+sage library skill add ./path/to/local-skill -l my-library    # Local skill
+sage skill add github:owner/repo-skill -l my-library           # From GitHub
+sage library push my-library                                   # Push to IPFS
 
 # Step 2: Check DAO governance type
 sage governance dao info 0x<subdao-address>
@@ -573,11 +621,11 @@ sage governance dao info 0x<subdao-address>
 
 # Step 3: Promote to DAO
 # Council mode + operator wallet (has timelock PROPOSER_ROLE):
-sage library promote . --dao 0x<address> --collection default --exec
+sage library promote my-library --dao 0x<address> --collection default --exec
 # ↑ Schedules and executes (depending on timelock delay)
 
 # Council mode + non-operator wallet (no PROPOSER_ROLE), or Community mode:
-sage library promote . --dao 0x<address> --collection default
+sage library promote my-library --dao 0x<address> --collection default
 # ↑ Submits a governor proposal
 # Then vote/queue/execute through governance flow
 ```
@@ -585,6 +633,23 @@ sage library promote . --dao 0x<address> --collection default
 If you need explicit proposal control, use:
 ```bash
 sage governance proposals create --proposal-type library --dao 0x<address> --cid <cid> --library default "Title"
+```
+
+### Installing Skills from GitHub
+
+Skills can be installed directly from GitHub repositories:
+
+```bash
+# Install skill from GitHub to a library
+sage skill add github:obra/superpowers -l my-library
+sage skill add github:BowTiedSwan/solodit-api-skill -l my-library
+sage skill add github:jdrhyne/agent-skills -l my-library
+
+# With specific path in repo
+sage skill add github:owner/repo --path skills/my-skill -l my-library
+
+# With specific branch/tag
+sage skill add github:owner/repo --ref v1.0.0 -l my-library
 ```
 
 ### Governance Types
@@ -608,6 +673,70 @@ sage governance proposals create --proposal-type library --dao 0x<address> --cid
 - **Personal Governance DAO** - Full on-chain discoverability, instant updates, no voting
 - **Personal Library** (`sage library personal`) - Off-chain, faster setup, less discoverable
 - **Community DAO** - When you want community input on changes
+
+### Creating Workflow DAOs with Multiple Skills
+
+Workflow DAOs bundle multiple related skills into a cohesive library. This is the recommended pattern for complex tasks.
+
+**Step 1: Create a library and add skills from multiple sources:**
+
+```bash
+# Create library
+sage library create video-workflow
+
+# Add local workflow orchestrator skill
+sage library skill add ./skills/video-pipeline -l video-workflow
+
+# Add skills from GitHub
+sage skill add github:yizhiyanhua-ai/media-downloader -l video-workflow
+sage skill add github:dimastatz/whisper-flow -l video-workflow
+
+# Add existing local skills
+sage library skill add ~/.claude/skills/remotion-best-practices -l video-workflow
+sage library skill add ~/.claude/skills/agent-browser -l video-workflow
+```
+
+**Step 2: Push library to IPFS:**
+
+```bash
+sage library push video-workflow
+# Returns: CID: bafkrei...
+```
+
+**Step 3: Create DAO with embedded library:**
+
+```bash
+sage governance dao create \
+  --name "Video Content Pipeline" \
+  --description "Complete video production workflow with 5 chained skills" \
+  --governance community \
+  --manifest-cid bafkrei... \
+  --burn 1500
+```
+
+**Alternative: Create DAO with --skill flags directly:**
+
+```bash
+# For simpler cases, embed skills at creation time
+sage governance dao create \
+  --name "Web3 Security Suite" \
+  --description "Smart contract audit workflow" \
+  --governance community \
+  --skill ./skills/security-workflow \
+  --skill ./skills/solidity-audit \
+  --burn 1500
+```
+
+**Updating an Existing Workflow DAO:**
+
+```bash
+# Add more skills to existing library
+sage skill add github:kepano/obsidian-skills -l video-workflow
+sage library push video-workflow
+
+# Promote updated library to DAO
+sage library promote video-workflow --dao 0x... --collection default
+```
 
 ---
 

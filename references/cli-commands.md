@@ -35,7 +35,11 @@ Complete command reference for the Sage CLI. Load this file only when you need t
 |---------|-------------|
 | `sage skill suggest "<query>"` | Get skill suggestions for a task |
 | `sage skill get <key>` | Get full skill content |
-| `sage skill install <source>` | Install a skill |
+| `sage skill add <source>` | Install a skill (local path, `github:owner/repo`, or `sage:<cid>`) |
+| `sage skill add github:owner/repo -l <library>` | Install skill from GitHub to library |
+| `sage skill add github:owner/repo --path subdir -l <library>` | Install from subdirectory |
+| `sage skill add github:owner/repo --ref v1.0.0 -l <library>` | Install specific version |
+| `sage skill list` | List installed skills |
 | `sage prompts publish --subdao <name> --yes` | Publish prompts to your DAO |
 | `sage prompts publish --subdao <name> --yes --exec` | Publish + auto-execute (operator mode) |
 
@@ -45,10 +49,14 @@ Complete command reference for the Sage CLI. Load this file only when you need t
 |---------|-------------|
 | `sage library quickstart --name "X" --from-dir ./prompts --governance personal` | Create DAO + upload prompts |
 | `sage library create <name>` | Create a new library |
-| `sage library push` | Push library to IPFS |
+| `sage library list` | List local libraries |
+| `sage library show <name>` | Show library details |
+| `sage library push <name>` | Push library to IPFS (returns CID) |
 | `sage library sync` | Sync libraries from remote |
-| `sage library promote . --dao 0x... --collection default --exec` | Promote to DAO |
-| `sage library skill add <path>` | Add a skill to library |
+| `sage library promote <name> --dao 0x... --collection default` | Promote to DAO (creates proposal) |
+| `sage library promote <name> --dao 0x... --collection default --exec` | Promote + execute (operator only) |
+| `sage library skill add <path> -l <library>` | Add a local skill to library |
+| `sage library skill list -l <library>` | List skills in library |
 | `sage library personal list` | List personal libraries |
 | `sage library personal push` | Push personal library |
 | `sage library trash list` | List trashed items |
@@ -60,10 +68,16 @@ Complete command reference for the Sage CLI. Load this file only when you need t
 | `sage governance dao list` | List DAOs from on-chain registry |
 | `sage governance dao info <address>` | DAO details + your voting multiplier |
 | `sage governance dao discover` | Discover DAOs from IPFS worker (fast) |
-| `sage governance dao create --name "X" --governance personal\|team\|community` | Create SubDAO (burns SXXX) |
+| `sage governance dao create --name "X" --description "Y" --governance personal` | Create personal SubDAO |
+| `sage governance dao create --name "X" --description "Y" --governance team --operator 0x...` | Create team SubDAO |
+| `sage governance dao create --name "X" --description "Y" --governance community --burn 1500` | Create community SubDAO |
+| `sage governance dao create --name "X" --description "Y" --governance community --skill ./skill1 --skill ./skill2` | Create DAO with embedded skills |
+| `sage governance dao create --name "X" --description "Y" --governance community --manifest-cid bafkrei...` | Create DAO with pre-built manifest |
 | `sage governance proposals list --dao 0x...` | List proposals |
-| `sage governance proposals create --proposal-type library --dao 0x... --cid Qm... "Title"` | Create proposal |
-| `sage governance proposals vote <id> for\|against\|abstain` | Vote on proposal |
+| `sage governance proposals create --proposal-type library --dao 0x... --cid Qm... --library default "Title"` | Create proposal |
+| `sage governance proposals create --proposal-type library --dao 0x... --cid Qm... --library default "Title" --description "Desc"` | Create with description |
+| `sage governance proposals vote <id> for` | Vote for |
+| `sage governance proposals vote <id> against` | Vote against |
 | `sage governance proposals execute <id> --dao 0x...` | Execute passed proposal |
 
 ### Operator (Auto-execution)
