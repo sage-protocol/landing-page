@@ -122,10 +122,10 @@ All burns reduce circulating supply permanently:
 Separate from SXXX — credits pay for IPFS pinning and content hosting.
 
 ```bash
-sage ipfs credits              # Check credit balance
-sage ipfs buy-credits --plan medium   # Purchase credits
-sage ipfs upload <file>        # Upload content (costs credits)
-sage ipfs pin <cid>            # Pin content (costs credits)
+sage config ipfs balance       # Check credit balance
+sage config ipfs costs         # Check pinning cost tiers
+sage config ipfs upload <file> # Upload content (costs credits)
+sage config ipfs pin <cid>     # Pin content (costs credits)
 ```
 
 If credits are insufficient, the worker returns HTTP 402. The x402 payment protocol handles this automatically when configured.
@@ -203,8 +203,8 @@ sage bounties list                      # Open bounties
 sage capture status                     # RLM captures (contribute to activity)
 
 # Spending
-sage ipfs credits                       # IPFS credit balance
-sage ipfs buy-credits                   # Purchase credits
+sage config ipfs balance                # IPFS credit balance
+sage config ipfs costs                  # Check pricing before upload/pin
 sage governance dao create --name "X"   # Burns SXXX to create DAO
 
 # Governance

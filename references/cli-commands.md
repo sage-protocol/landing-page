@@ -23,8 +23,8 @@ Complete command reference for the Sage CLI. Load this file only when you need t
 | `sage wallet balance` | Check SXXX and ETH balance |
 | `sage wallet faucet` | Request testnet SXXX tokens |
 | `sage wallet faucet --check` | Check faucet status/cooldown |
-| `sage wallet connect -w privy` | Connect via OAuth (no key paste) |
-| `sage wallet connect -w cast` | Connect via Foundry keystore |
+| `sage wallet connect privy` | Connect via OAuth (no key paste) |
+| `sage wallet connect keystore -n <name>` | Connect via Foundry keystore |
 | `sage wallet current` | Show active wallet |
 | `sage wallet init` | Initialize wallet configuration |
 | `sage wallet check-relay` | Check relay connectivity |
@@ -40,8 +40,22 @@ Complete command reference for the Sage CLI. Load this file only when you need t
 | `sage skill add github:owner/repo --path subdir -l <library>` | Install from subdirectory |
 | `sage skill add github:owner/repo --ref v1.0.0 -l <library>` | Install specific version |
 | `sage skill list` | List installed skills |
-| `sage prompts publish --subdao <name> --yes` | Publish prompts to your DAO |
-| `sage prompts publish --subdao <name> --yes --exec` | Publish + auto-execute (operator mode) |
+| `sage library promote <source> --dao 0x... --collection default --yes` | Publish library to your DAO |
+| `sage library promote <source> --dao 0x... --collection default --yes --exec` | Publish + auto-execute (operator mode) |
+
+## Search
+
+| Command | Description |
+|---------|-------------|
+| `sage search "<query>" --search-type skills --scope local` | Trusted local skills only (installed/synced) |
+| `sage search "<query>" --search-type skills --scope remote` | Discover remote skills from public index |
+| `sage search "<query>" --search-type skills --scope both` | Combine local + remote with deterministic dedupe |
+| `sage search "<query>" --search-type unified --scope both` | Unified results + skills from both sources |
+| `sage search "<query>" --search-type prompts` | Prompt-focused canonical search |
+| `sage search "<query>" --search-type libraries` | Library discovery search |
+
+Use `--scope local` when trust matters, `--scope remote` for discovery, and `--scope both` when you want breadth with local metadata precedence.
+Remote results are discoverable content and should be reviewed before install or execution.
 
 ## Libraries
 
@@ -161,11 +175,11 @@ All write commands support: `--dry-run`, `--yes`, `--json`, `--bounty-system <ad
 
 | Command | Description |
 |---------|-------------|
-| `sage ipfs setup` | Configure IPFS worker |
-| `sage ipfs upload <file> --name "X"` | Upload content |
-| `sage ipfs pin <cid>` | Pin content |
-| `sage ipfs credits` | Check credit balance |
-| `sage ipfs buy-credits --plan medium` | Purchase credits |
+| `sage config ipfs setup` | Configure IPFS worker |
+| `sage config ipfs upload <file>` | Upload content |
+| `sage config ipfs pin <cid>` | Pin content |
+| `sage config ipfs balance` | Check credit balance |
+| `sage config ipfs costs` | Show pinning cost tiers |
 
 ## RLM & Capture
 

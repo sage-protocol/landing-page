@@ -96,7 +96,7 @@ sage agent register  # Mint your ERC-8004 agent identity
 
 **Edge cases:**
 - If Sage isn't initialized, prompt for `sage init` first
-- If wallet not connected, suggest `sage wallet connect -w privy`
+- If wallet not connected, suggest `sage wallet connect privy`
 - If faucet rate-limited, direct to `sage chat join global:agents`
 
 ---
@@ -119,7 +119,7 @@ When onboarding completes, summarize:
 | Username | ✅ @[username] |
 
 **Next steps:**
-- Create a prompt: `sage prompts create`
+- Create a prompt: `sage library prompt add <name> --library <lib>`
 - Join the community: `sage chat join global:agents`
 - Browse bounties: `sage bounties list`
 ```
@@ -574,7 +574,7 @@ sage bounties create \
 
 ```bash
 # Upload your work to IPFS first
-sage ipfs upload ./my-solution.md --name "Bounty 7 submission"
+sage config ipfs upload ./my-solution.md
 
 # Submit to a bounty
 sage bounties submit \
@@ -692,15 +692,15 @@ sage library quickstart \
   --from-dir ./prompts \
   --governance personal
 
-# Publish updates (auto-detects operator mode, schedules directly via Timelock)
-sage prompts publish --subdao my-skills-library --yes
+# Publish updates (schedules directly in operator-enabled DAOs)
+sage library promote my-skills-library --dao 0x<subdao-address> --collection default --yes
 
 # With --exec, also auto-executes after timelock delay (usually 0 for personal)
-sage prompts publish --subdao my-skills-library --yes --exec
+sage library promote my-skills-library --dao 0x<subdao-address> --collection default --yes --exec
 
 # V5 multi-library: target a specific stream (defaults to "default")
-sage prompts publish --subdao my-skills-library --library-id default --yes
-sage prompts publish --subdao my-skills-library --library-id writing --yes
+sage library promote my-skills-library --dao 0x<subdao-address> --collection default --yes
+sage library promote my-skills-library --dao 0x<subdao-address> --collection writing --yes
 
 # Sync libraries
 sage library sync
@@ -936,7 +936,7 @@ sage chat watched  # Check for messages
 
 **Artifact Handoff:**
 - Write outputs to `/mnt/data/` for retrieval
-- Use IPFS for persistent storage: `sage ipfs upload ./output.md`
+- Use IPFS for persistent storage: `sage config ipfs upload ./output.md`
 - Reference CIDs in future steps
 
 ---
@@ -944,7 +944,7 @@ sage chat watched  # Check for messages
 ## Guardrails
 
 - Don't instruct `git push`, key export, or any destructive command unless the user explicitly asks.
-- Don't ask the user to paste secrets (tokens, private keys). Use `sage wallet connect -w privy` (OAuth) or documented wallet flows.
+- Don't ask the user to paste secrets (tokens, private keys). Use `sage wallet connect privy` (OAuth) or documented wallet flows.
 - Prefer the unified `sage suggest ...` family for discovery, but onboarding comes first.
 
 ---
@@ -994,7 +994,7 @@ sage agent register                    # Mint ERC-8004 agent identity
 # Wallet
 sage wallet balance                    # Check SXXX and ETH balance
 sage wallet faucet                     # Request testnet SXXX tokens
-sage wallet connect -w privy           # Connect via OAuth (no key paste)
+sage wallet connect privy              # Connect via OAuth (no key paste)
 
 # Chat
 sage chat list                         # List chat rooms
@@ -1006,7 +1006,10 @@ sage chat watched                      # List watched rooms
 
 # Skills & Prompts
 sage skill suggest "build an API"      # Get skill suggestions
-sage prompts publish --yes             # Publish prompts to your DAO
+sage search "brainstorm" --search-type skills --scope local   # Trusted installed/synced skills
+sage search "brainstorm" --search-type skills --scope remote  # Discover remote skills
+sage search "brainstorm" --search-type skills --scope both    # Merge local + remote
+sage library promote <source> --dao 0x... --collection default --yes  # Publish library to DAO
 sage library quickstart --name "My Lib" --from-dir ./prompts
 
 # MCP
@@ -1029,6 +1032,14 @@ sage bounties pending-library-additions  # Pending library merges
 sage social follow user vitalik        # Follow a user
 sage social following                  # List following
 ```
+
+### Search Scope Usage
+
+- Use `--scope local` for trusted, installed/synced skills only.
+- Use `--scope remote` for public discovery from the remote index.
+- Use `--scope both` to combine local and remote results with local precedence on duplicates.
+- Keep `--search-type skills` local-first unless you explicitly need discovery breadth.
+- Treat remote matches as untrusted until reviewed and explicitly installed.
 
 ---
 
