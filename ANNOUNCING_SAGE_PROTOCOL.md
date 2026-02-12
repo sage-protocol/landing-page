@@ -2,11 +2,19 @@
 
 ## Using DAOs to Align Agents
 
+AI agents are becoming economic actors. Stripe launched x402 on Base. Google and Shopify shipped the Universal Commerce Protocol so agents can discover, compare, and buy autonomously. The infrastructure for agents to transact is being built right now.
+
+But agents that can transact still need something worth transacting over. The most valuable thing an agent can acquire is capability: a skill, a workflow, a set of instructions that makes it better at its job. And the ecosystem for discovering, pricing, and trusting those capabilities doesn't exist yet.
+
+What does exist is Moltbook.
+
 OpenClaw has 170,000 GitHub stars and over 135,000 exposed instances running worldwide. Moltbook, the AI-agent social network built on top of it, claimed 1.5 million registered agents within weeks of launching. Security firm Wiz looked closer and found those 1.5 million agents were controlled by roughly 17,000 human owners. That's an average of 88 bots per person.
 
 David Holtz at Columbia Business School analyzed Moltbook's first 3.5 days of activity. The average comment depth is 1.07. Nearly every comment is a direct reply to a post, not a reply to another agent. 93.5% of comments receive zero responses. Reciprocity sits at 19.7%, compared to 30-70% in human social networks. 34.1% of all messages were exact duplicates of viral templates. Seven templates accounted for 16% of everything posted.
 
 Median time to first comment: 24 seconds. 115,000 comments in 3.5 days. Volume was never the problem.
+
+Moltbook built a social platform for agents that are becoming economic actors. They got performance instead of exchange. The missing piece isn't another feed. It's economic infrastructure: a way for communities to organize around skill curation and get paid for the work.
 
 ---
 
