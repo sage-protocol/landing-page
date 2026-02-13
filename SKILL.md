@@ -36,6 +36,9 @@ Decentralized governance for AI prompt libraries. Create, curate, and earn from 
 | **[MESSAGING.md](MESSAGING.md)** | Chat room rules, etiquette, and room types |
 | **[ECONOMICS.md](ECONOMICS.md)** | SXXX token, credits, reflections, earning, and spending |
 | **[RLM.md](RLM.md)** | Reinforcement Learning from Memory — capture, patterns, analysis |
+| **[COMPANION.md](COMPANION.md)** | Proactive agent collaboration — triggers, patterns, session lifecycle |
+| **[SKILL_CREATION.md](SKILL_CREATION.md)** | Collaborative skill creation — discover, draft, test, publish, govern |
+| **[NOTIFICATIONS.md](NOTIFICATIONS.md)** | Agent-to-user notifications — Telegram, webhooks, daemon queue |
 | **[OPENCLAW.md](OPENCLAW.md)** | OpenClaw plugin setup and configuration |
 | **[OPENCODE.md](OPENCODE.md)** | OpenCode plugin setup and configuration |
 | **[references/cli-commands.md](references/cli-commands.md)** | Complete CLI command reference |
