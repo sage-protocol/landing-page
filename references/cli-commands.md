@@ -24,6 +24,8 @@ Complete command reference for the Sage CLI. Load this file only when you need t
 | `sage wallet faucet` | Request testnet SXXX tokens |
 | `sage wallet faucet --check` | Check faucet status/cooldown |
 | `sage wallet connect privy` | Connect via OAuth (no key paste) |
+| `sage wallet connect privy --device-code` | Connect via login code flow (prints URL + code) |
+| `sage wallet connect privy --force --device-code` | Clear stale auth and start fresh login code flow |
 | `sage wallet connect keystore -n <name>` | Connect via Foundry keystore |
 | `sage wallet current` | Show active wallet |
 | `sage wallet init` | Initialize wallet configuration |
@@ -56,6 +58,7 @@ Complete command reference for the Sage CLI. Load this file only when you need t
 
 Use `--scope local` when trust matters, `--scope remote` for discovery, and `--scope both` when you want breadth with local metadata precedence.
 Remote results are discoverable content and should be reviewed before install or execution.
+If `sage skill search` is not available on your binary, use the `sage search ... --search-type skills` commands above.
 
 ## Libraries
 
@@ -64,6 +67,7 @@ Remote results are discoverable content and should be reviewed before install or
 | `sage library quickstart --name "X" --from-dir ./prompts --governance personal` | Create DAO + upload prompts |
 | `sage library create <name>` | Create a new library |
 | `sage library list` | List local libraries |
+| `sage library list --discover` | Discover on-chain DAO libraries |
 | `sage library show <name>` | Show library details |
 | `sage library push <name>` | Push library to IPFS (returns CID) |
 | `sage library sync` | Sync libraries from remote |

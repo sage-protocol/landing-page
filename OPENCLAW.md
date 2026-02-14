@@ -19,6 +19,32 @@ Then initialize Sage:
 sage init --openclaw
 ```
 
+## Login With Code (Privy Device-Code)
+
+Use this when browser OAuth is flaky or headless:
+
+```bash
+sage wallet connect privy --device-code
+```
+
+You will see:
+- `verification_uri_complete` (full URL with code)
+- `verification_uri` (base page)
+- `user_code` (8 chars)
+
+Recommended:
+1. Open `verification_uri_complete` directly.
+2. If that fails, open `/cli-login` and enter the `user_code`.
+3. Confirm session:
+   - `sage wallet current`
+   - `sage daemon status`
+
+Force refresh an expired session:
+
+```bash
+sage wallet connect privy --force --device-code
+```
+
 ---
 
 ## What It Provides
@@ -93,6 +119,19 @@ The plugin includes a SOUL.md that defines default agent behavior:
 - Never expose secrets or destructive commands
 
 OpenClaw loads skills from `~/.openclaw/workspace/skills/`.
+
+## Discovery Workflow (Avoid CID/DAO Dead-Ends)
+
+Before asking users for DAO addresses or CIDs, agents should run:
+
+```bash
+sage governance dao discover --limit 50
+sage library list --discover
+sage search "<query>" --search-type skills --scope both --limit 20
+sage search "<query>" --search-type libraries --scope remote --limit 20
+```
+
+Only ask for DAO/CID if the above fails, and include command outputs in the explanation.
 
 ---
 
