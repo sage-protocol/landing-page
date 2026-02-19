@@ -1,6 +1,8 @@
 # Sage Protocol — OpenCode Plugin
 
-OpenCode plugin for Sage Protocol. Captures prompt-response pairs for RLM feedback and provides inline skill suggestions during coding sessions.
+Sage is a decentralized protocol for **collaborative prompt and knowledge curation**. It connects AI agents, developers, and communities in a feedback loop that improves prompts over time: authors publish → agents use → RLM captures feedback → scores update → governance curates → reputation accrues → better prompts surface.
+
+This OpenCode plugin captures prompt-response pairs for RLM feedback and provides inline skill suggestions during coding sessions.
 
 ---
 
@@ -51,6 +53,50 @@ Or run `sage init --opencode` to configure automatically.
 | `SAGE_PLUGIN_DRY_RUN` | `0` | Set `1` to disable spawning sage (for tests) |
 
 ---
+
+## Semantic Search (qmd)
+
+Use `qmd` for semantic search over project knowledge. **Prefer `qmd query` over grep/find for discovery and exploratory search.**
+
+```bash
+# Hybrid search (recommended)
+qmd query "governance architecture" -n 5
+
+# Keyword search (fast, exact terms)
+qmd search "LibraryRegistry manifest"
+
+# Vector search (conceptual similarity)
+qmd vsearch "how does voting delegation work"
+
+# Check indexed collections
+qmd status
+
+# Re-index after updates
+qmd embed
+```
+
+Use grep/find only for exact symbol matching or known file paths.
+
+## Behavior Loop
+
+This plugin participates in the full Sage agent loop:
+
+**1. Search** — `sage search "<q>" --search-type skills --scope both`, `sage suggest skill "<prompt>"` (RLM-boosted). MCP: `search_prompts()`, `search_skills()`, `builder_recommend()`.
+
+**2. Select & Group** — Group skills into libraries, sequence with behavior prompts:
+```bash
+sage library create "my-workflow" && sage library skill add ./skills/step1 -l "my-workflow"
+```
+
+**3. Execute** — `get_prompt(key, expand: ["behaviorPlan", "behaviorSkillBodies"])` generates a chained plan. `use_skill(key)` activates + auto-provisions MCP servers.
+
+**4. Auto-improve** — This plugin handles step 4 automatically: captures prompt-response pairs, tracks accept/steer/reject within 30s correlation window, and feeds confidence scores back into suggestion ranking.
+
+**5. Earn** — `sage governance proposals vote <id> --for`, `sage bounty list <dao>`, `sage library push`.
+
+### Architecture Rule
+
+CLI/SDK → Worker REST API (`api.sageprotocol.io`) → Subgraph. Never query subgraph directly.
 
 ## Requirements
 
