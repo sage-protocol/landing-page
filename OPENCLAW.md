@@ -39,7 +39,7 @@ Recommended:
    - `sage wallet current`
    - `sage daemon status`
 
-Force refresh an expired session:
+The CLI auto-detects stale sessions (device token mismatch, error 1008, gateway closed) and retries with cleared credentials automatically. If auto-retry still fails, force manually:
 
 ```bash
 sage wallet connect privy --force --device-code
