@@ -181,6 +181,27 @@ Default to `--scope local` for execution decisions, and treat remote results as 
 
 ---
 
+## Bounties, Chat, and RLM Quick Checks
+
+Use these as the minimal operational loop:
+
+```bash
+# Bounties
+sage bounties list --subdao 0x...
+sage bounties pending-library-additions --subdao 0x...
+
+# Chat
+sage chat watched
+sage chat history global:general --limit 50
+
+# RLM
+sage capture status
+sage metrics rlm
+sage metrics list-patterns --limit 20
+```
+
+---
+
 ## Soul Sync (Governed Agent Behavior)
 
 When `soulStreamDao` is configured, the plugin reads a locally-synced soul document at agent start and prepends it to the context before all other injections. This lets a DAO govern agent behavior via on-chain proposals.

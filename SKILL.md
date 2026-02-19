@@ -126,8 +126,9 @@ Run with explicit tool/skill context (`use_skill`, `get_prompt` with behavior ex
 Capture usage automatically, then analyze:
 ```bash
 sage capture status
-sage rlm stats
-sage rlm analyze --since "24h"
+sage metrics rlm
+sage metrics list-patterns --limit 20
+sage suggest analyze "improve workflow quality" --limit 50
 ```
 
 **5. Earn & Collaborate**

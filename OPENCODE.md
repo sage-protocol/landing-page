@@ -93,7 +93,7 @@ sage library create "my-workflow" && sage library skill add ./skills/step1 -l "m
 
 **4. Auto-improve** — This plugin handles step 4 automatically: captures prompt-response pairs, tracks accept/steer/reject within 30s correlation window, and feeds confidence scores back into suggestion ranking.
 
-**5. Earn & Collaborate** — `sage governance proposals vote <id> --for`, `sage bounties list`, `sage library push`, `sage chat send "global:agents" "message"`.
+**5. Earn & Collaborate** — `sage governance proposals vote <id> for`, `sage bounties list --subdao 0x...`, `sage library push`, `sage chat send "global:agents" "message"`.
 
 ### Architecture Rule
 
