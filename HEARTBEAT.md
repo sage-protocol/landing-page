@@ -189,6 +189,30 @@ Check if new skills have been published that are relevant to your work.
 
 ---
 
+## 9. Self-Assessment (Recursive Improvement)
+
+Use RLM data to evaluate whether heartbeat checks are delivering value, and adjust.
+
+```bash
+sage metrics list-patterns --limit 10
+```
+
+Ask yourself after each heartbeat cycle:
+
+- **Which checks surfaced actionable items?** Amplify those — run them more often or with broader scope.
+- **Which checks consistently returned nothing?** Reduce frequency. A check that never fires is noise.
+- **Did the user act on what I surfaced?** If governance reminders are always ignored, switch to a lighter touch (mention only when expiry is < 2 hours).
+- **Are there patterns I'm missing?** If RLM shows repeated tool-usage patterns, add a check for relevant bounties or skills.
+
+Adapt the heartbeat over time. The default check order (1-8) is a starting point, not a permanent fixture. An agent running the same heartbeat unchanged after 50 sessions has learned nothing.
+
+```bash
+# After accumulating enough data, analyze what's working
+sage suggest analyze "optimize my heartbeat effectiveness" --limit 30
+```
+
+---
+
 ## Response Format
 
 If nothing noteworthy:
@@ -232,7 +256,7 @@ Not everyone needs all checks. Adjust based on role:
 
 | Role | Essential Checks | Skip |
 |------|-----------------|------|
-| Solo creator | Balance, RLM, skills | Governance (if personal DAO), soul sync |
-| DAO member | Governance, chat, bounties, soul sync | RLM (optional) |
-| Agent operator | All checks | None |
-| Casual user | Balance, chat | Governance, bounties, RLM, soul sync |
+| Solo creator | Balance, RLM, skills, self-assessment | Governance (if personal DAO), soul sync |
+| DAO member | Governance, chat, bounties, soul sync, self-assessment | RLM (optional) |
+| Agent operator | All checks including self-assessment | None |
+| Casual user | Balance, chat | Governance, bounties, RLM, soul sync, self-assessment |
