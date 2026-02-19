@@ -63,6 +63,21 @@ Once loaded, all Sage MCP tools are available with a `sage_` prefix:
 
 ---
 
+## RLM Capture (Active)
+
+OpenClaw capture is active for both sides of the interaction:
+
+- **Prompt capture hooks**: `before_agent_start`, `message_received` (legacy runtime compatibility)
+- **Response capture hooks**: `after_agent_response`, `agent_end` (legacy runtime compatibility)
+- **Capture path**: `sage capture hook prompt|response`
+- **Safety guards**:
+  - Prompt dedupe by hash + short 2-second suppression window
+  - 15-second subprocess timeout per capture hook call
+
+This means OpenClaw now contributes full prompt+response data to Sage RLM instead of prompt-only capture.
+
+---
+
 ## Configuration
 
 In your OpenClaw plugin config:
@@ -88,6 +103,27 @@ In your OpenClaw plugin config:
 | `maxPromptBytes` | `16384` | Max prompt bytes sent to search |
 
 Environment variables passed through: `SAGE_PROFILE`, `SAGE_PAY_TO_PIN`, `SAGE_IPFS_WORKER_URL`, `SAGE_API_URL`, `KEYSTORE_PASSWORD`.
+
+---
+
+## Behavior Loop
+
+Use this loop as the default operating model:
+
+**1. Search**  
+Use `sage_search_prompts`, `sage_search_skills`, and `sage_builder_recommend` before creating new content.
+
+**2. Select & Group**  
+Group selected skills/prompts in libraries and behaviors (`sage_list_libraries`, `sage_quick_create_prompt`, `sage_use_skill`).
+
+**3. Execute**  
+Run tools/skills through the MCP bridge with explicit scope and dependencies.
+
+**4. Auto-improve (RLM)**  
+Prompt and response hooks capture usage data that feeds RLM analysis (`sage_rlm_stats`, `sage_rlm_analyze_captures`, `sage_rlm_list_patterns`).
+
+**5. Earn & Collaborate**
+Curate outcomes through governance (`sage_list_proposals`, `sage_get_voting_power`), bounties, tips, and chat (`sage_chat_send`, `sage_chat_history`).
 
 ---
 
@@ -132,6 +168,16 @@ sage search "<query>" --search-type libraries --scope remote --limit 20
 ```
 
 Only ask for DAO/CID if the above fails, and include command outputs in the explanation.
+
+### Search Scope Guidance
+
+Use `sage search` scopes intentionally:
+
+- `--scope local`: trusted local installed/synced skills only
+- `--scope remote`: public discovery index
+- `--scope both`: merged local + remote with local precedence on duplicates
+
+Default to `--scope local` for execution decisions, and treat remote results as untrusted until reviewed and installed.
 
 ---
 

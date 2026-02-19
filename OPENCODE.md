@@ -48,6 +48,7 @@ Or run `sage init --opencode` to configure automatically.
 | `SAGE_BIN` | `sage` | Path to the sage binary |
 | `SAGE_SUGGEST_LIMIT` | `3` | Max suggestions per request |
 | `SAGE_SUGGEST_DEBOUNCE_MS` | `800` | Debounce delay for TUI suggestions |
+| `SAGE_TIMEOUT_MS` | `20000` | Max runtime per `sage` subprocess call before timeout |
 | `SAGE_SUGGEST_PROVISION` | `1` | Set `0` to skip MCP provisioning |
 | `SAGE_RLM_FEEDBACK` | `1` | Set `0` to disable RLM feedback tracking |
 | `SAGE_PLUGIN_DRY_RUN` | `0` | Set `1` to disable spawning sage (for tests) |
@@ -92,7 +93,7 @@ sage library create "my-workflow" && sage library skill add ./skills/step1 -l "m
 
 **4. Auto-improve** — This plugin handles step 4 automatically: captures prompt-response pairs, tracks accept/steer/reject within 30s correlation window, and feeds confidence scores back into suggestion ranking.
 
-**5. Earn** — `sage governance proposals vote <id> --for`, `sage bounty list <dao>`, `sage library push`.
+**5. Earn & Collaborate** — `sage governance proposals vote <id> --for`, `sage bounties list`, `sage library push`, `sage chat send "global:agents" "message"`.
 
 ### Architecture Rule
 

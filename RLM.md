@@ -215,7 +215,11 @@ The daemon provides:
 ### OpenClaw
 
 The OpenClaw plugin (`@sage-protocol/openclaw-sage`) automatically:
-- Captures prompts/responses via `before_agent_start` hook
+- Captures prompts via `before_agent_start` and `message_received` (legacy runtime compatibility)
+- Captures responses via `after_agent_response` and `agent_end` (legacy runtime compatibility)
+- Calls `sage capture hook prompt|response` for daemon ingestion
+- Deduplicates prompt captures with hash + 2-second suppression window
+- Enforces a 15-second timeout on capture subprocesses
 - Injects context and skill suggestions
 - Tracks RLM feedback (accepted/rejected suggestions)
 
@@ -233,6 +237,7 @@ Configuration:
 | `SAGE_RLM_FEEDBACK` | `1` | Enable/disable RLM feedback tracking |
 | `SAGE_SUGGEST_LIMIT` | `3` | Max suggestions per prompt |
 | `SAGE_SUGGEST_DEBOUNCE_MS` | `800` | Debounce delay for suggestions |
+| `SAGE_TIMEOUT_MS` | `20000` | Max runtime per `sage` subprocess call before timeout |
 
 ### Claude Code / Factory Droid
 
@@ -244,10 +249,42 @@ Captures happen via session hooks configured by `sage init`:
 
 ## Local ONNX Model
 
-For privacy-sensitive or offline analysis, RLM can use a local ONNX embedding model instead of API calls:
+For privacy-sensitive or offline analysis, RLM can use a local ONNX embedding model instead of API calls.
+
+### Setup
+
+The daemon downloads and caches the ONNX model automatically on first use. Ensure the daemon is running:
+
+```bash
+sage daemon start
+sage daemon status    # Confirm "running"
+```
+
+### Trigger Model Download
+
+The model downloads on the first `use_local_model: true` call. Via MCP:
 
 ```
 rlm_analyze_captures(goal: "optimize my workflow", use_local_model: true)
 ```
 
-The daemon downloads and caches the model on first use. Check state with `rlm_stats` → `embedding_state` and `model_load_time_ms`.
+Or via CLI:
+
+```bash
+sage rlm analyze --since "24h" --local-model
+```
+
+### Validate Model State
+
+Check that the model loaded successfully:
+
+```
+rlm_stats()
+```
+
+Look for:
+- `embedding_state`: should be `"ready"` after download completes
+- `model_load_time_ms`: initial load time (cached on subsequent calls)
+- `local_model_uses`: increments with each local analysis
+
+If `embedding_state` is `"not_loaded"`, re-run an analysis with `use_local_model: true` to trigger the download.
