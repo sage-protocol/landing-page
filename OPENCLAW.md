@@ -138,15 +138,14 @@ Scans agent prompts and fetched prompt content for injection patterns:
 {
   "injectionGuardEnabled": true,
   "injectionGuardMode": "warn",
-  "injectionGuardScanAgentPrompt": true,
-  "injectionGuardScanGetPrompt": true
+  "injectionGuardScanAgentPrompt": true
 }
 ```
 
 | Mode | Behavior |
 |------|----------|
 | `warn` | Log warning, continue execution |
-| `block` | Block `sage_get_prompt` results that are flagged |
+| `block` | Block `sage_execute` calls when outgoing params are flagged |
 
 ---
 
