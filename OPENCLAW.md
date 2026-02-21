@@ -1,6 +1,6 @@
 # Sage Protocol — OpenClaw Plugin
 
-MCP bridge plugin that exposes all 60+ Sage Protocol tools inside OpenClaw.
+MCP bridge plugin that exposes Sage Protocol tools inside OpenClaw via Code Mode.
 
 **USE WHEN:** Running OpenClaw and need Sage tools (prompts, skills, governance, chat, RLM).
 
@@ -49,17 +49,20 @@ sage wallet connect privy --force --device-code
 
 ## What It Provides
 
-Once loaded, all Sage MCP tools are available with a `sage_` prefix:
+The plugin registers 3 fixed tools via Code Mode (`sage:code` server), replacing the previous 60+ dynamic tool registrations:
 
-- `sage_search_prompts`, `sage_list_prompts`, `sage_get_prompt`, `sage_quick_create_prompt`
-- `sage_search_skills`, `sage_list_skills`, `sage_get_skill`, `sage_use_skill`
-- `sage_builder_recommend`, `sage_builder_synthesize`, `sage_builder_vote`
-- `sage_list_subdaos`, `sage_list_proposals`, `sage_get_voting_power`
-- `sage_chat_list_rooms`, `sage_chat_send`, `sage_chat_history`
-- `sage_rlm_stats`, `sage_rlm_analyze_captures`, `sage_rlm_list_patterns`
-- `sage_memory_create_entities`, `sage_memory_search_nodes`, `sage_memory_read_graph`
-- `sage_hub_list_servers`, `sage_hub_start_server`, `sage_hub_stop_server`
-- `sage_status` — bridge health, wallet, network, tool count
+- `sage_search` — Read-only search across all domains (prompts, skills, governance, chat, RLM, etc.)
+  - Domains: `prompts`, `skills`, `builder`, `governance`, `chat`, `social`, `rlm`, `library_sync`, `security`, `help`, `external`
+  - Discover actions: `sage_search({domain: "help", action: "list"})`
+  - External servers: `sage_search({domain: "external", action: "list_servers"})`
+
+- `sage_execute` — Mutations across any domain or external server (security-scanned)
+  - Example: `sage_execute({domain: "skills", action: "use", params: {key: "mcp-builder"}})`
+  - External: `sage_execute({domain: "external", action: "<tool>", params: {server_id: "<id>"}})`
+
+- `sage_status` — Bridge health, wallet, network status
+
+Context savings: ~2,500 tokens → ~400 tokens (~85% reduction).
 
 ---
 
@@ -110,20 +113,20 @@ Environment variables passed through: `SAGE_PROFILE`, `SAGE_PAY_TO_PIN`, `SAGE_I
 
 Use this loop as the default operating model:
 
-**1. Search**  
-Use `sage_search_prompts`, `sage_search_skills`, and `sage_builder_recommend` before creating new content.
+**1. Search**
+`sage_search({domain: "prompts", action: "search", params: {query: "..."}})` and `sage_search({domain: "skills", action: "search", params: {query: "..."}})` before creating new content.
 
-**2. Select & Group**  
-Group selected skills/prompts in libraries and behaviors (`sage_list_libraries`, `sage_quick_create_prompt`, `sage_use_skill`).
+**2. Select & Group**
+Group selected skills/prompts in libraries and behaviors via `sage_execute({domain: "skills", action: "use", params: {key: "..."}})`.
 
-**3. Execute**  
-Run tools/skills through the MCP bridge with explicit scope and dependencies.
+**3. Execute**
+Run tools/skills through Code Mode with explicit scope and dependencies.
 
-**4. Auto-improve (RLM)**  
-Prompt and response hooks capture usage data that feeds RLM analysis (`sage_rlm_stats`, `sage_rlm_analyze_captures`, `sage_rlm_list_patterns`).
+**4. Auto-improve (RLM)**
+Prompt and response hooks capture usage data that feeds RLM analysis. Check stats: `sage_search({domain: "rlm", action: "stats"})`.
 
 **5. Earn & Collaborate**
-Curate outcomes through governance (`sage_list_proposals`, `sage_get_voting_power`), bounties, tips, and chat (`sage_chat_send`, `sage_chat_history`).
+Curate outcomes through governance: `sage_search({domain: "governance", action: "list_subdaos"})`, `sage_search({domain: "chat", action: "history", params: {channel: "global:general"}})`.
 
 ---
 
