@@ -20,6 +20,54 @@ Discover → Draft → Test → Publish → Govern
    └────────── RLM feedback ───────────┘
 ```
 
+### Prompts vs. Skills vs. MCP Dependencies (Crucial Distinction)
+
+Before creating content, you must understand the difference between the three layers of the Sage Ecosystem. **Agents often confuse these.**
+
+1. **Prompts:** 
+   - A raw string of text instructions (e.g., "Summarize this PR").
+   - Can be used by humans or LLMs out of the box. 
+   - Managed via `sage quick-create prompt`.
+
+2. **Skills:** 
+   - A structured `.md` document (like this one) that contains a Prompt *plus* execution routing logic (Frontmatter).
+   - Skills tell an agent *when* to use the underlying instructions (`USE WHEN` / `DON'T USE WHEN`).
+   - Managed via `sage skill add` or `sage library skill add`.
+
+3. **MCP Dependencies (Execution Targets):** 
+   - External servers (like GitHub, AWS, Playwright) that provide the actual *tools* the agent needs to execute the Skill.
+   - **Crucial Rule:** A skill *can* define how to use a local CLI (like the `sage` CLI or `git`). However, if your Skill requires an agent to interact with an external API or service that *isn't* exposed via a local CLI (like searching a private GitHub repo or provisioning AWS resources), the Skill must *declare an MCP dependency* on that server so the Sage Hub can auto-provision it.
+
+#### How to Add MCP Dependencies to a Skill Manifest
+
+If your drafted Skill requires external tools, you **must** declare them in the YAML frontmatter under the `mcp_server_configs` block. 
+
+When an agent loads this skill, the Sage Hub will automatically attempt to provision and connect these servers via the Portal.
+
+```yaml
+---
+name: my-github-reviewer-skill
+version: 1.0.0
+description: >
+  USE WHEN: the user asks to review a GitHub PR.
+mcp_server_configs:
+  github:
+    source: 
+      type: "npx"
+      package: "@modelcontextprotocol/server-github"
+    env_requirements:
+      - name: "GITHUB_PERSONAL_ACCESS_TOKEN"
+        description: "Requires repo read access"
+  puppeteer:
+    source:
+      type: "npx"
+      package: "@modelcontextprotocol/server-puppeteer"
+---
+```
+*(If the user's daemon lacks the required `env_requirements`, it will drop into `PendingAuthorization` state and prompt the user via CLI to provide the keys securely).*
+
+---
+
 ### 1. Discover: Identify Skill-Worthy Work
 
 Skills emerge from three sources:
