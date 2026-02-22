@@ -606,7 +606,7 @@ sage bounties create \
   --yes
 ```
 
-**Requirements:** SXXX balance >= reward amount. The CLI handles ERC20 approval automatically.
+**Requirements:** SXXX balance >= total deposit (reward + creator stake buffer). The CLI auto-calculates stake and handles ERC20 approval.
 
 **Cost structure:**
 - Reward goes 100% to winner (no protocol cut)
