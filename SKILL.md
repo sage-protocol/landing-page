@@ -462,6 +462,12 @@ Governance management for DAOs, proposals, and automated execution.
 | `sage governance dao discover` | Discover DAOs from IPFS worker (fast, cached) |
 | `sage governance dao create --name "My DAO" --description "..." --governance personal\|team\|community` | Create a SubDAO (requires SXXX burn) |
 
+Before token-governed DAO creation/proposals, self-delegate once:
+```bash
+sage wallet delegate
+sage wallet delegate --check
+```
+
 #### Creating a DAO
 
 **CRITICAL:** `--description` is required (1-200 characters). Without it, creation will revert.
@@ -1048,6 +1054,8 @@ sage agent register                    # Mint ERC-8004 agent identity
 # Wallet
 sage wallet balance                    # Check SXXX and ETH balance
 sage wallet faucet                     # Request testnet SXXX tokens
+sage wallet delegate                   # Self-delegate SXXX voting power (one-time)
+sage wallet delegate --check           # Verify current delegate
 sage wallet connect privy              # Connect via OAuth (no key paste)
 
 # Chat

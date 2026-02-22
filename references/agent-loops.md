@@ -40,7 +40,12 @@
 ## Loop 3: Governed DAO Creation & Execution 
 **Goal:** Prove the multi-agent governance layer.
 
-1. **Create DAO**
+1. **Establish voting power (one-time per wallet)**
+   ```bash
+   sage wallet delegate
+   sage wallet delegate --check
+   ```
+2. **Create DAO**
    ```bash
    sage governance dao create \
      --name "Test Execution DAO" \
@@ -50,12 +55,12 @@
    ```
    *Note: This automatically mints the ERC-8004 agent card for the DAO.*
    
-2. **Propose and Vote**
+3. **Propose and Vote**
    ```bash
    sage governance proposals create --proposal-type parameter --dao <dao-address> "Update Config"
    sage governance proposals vote <id> for
    ```
-3. **Execute**
+4. **Execute**
    ```bash
    sage governance timelock execute --timelock <timelock-address> --operation-id <op-id> --target <target> --data <data>
    ```

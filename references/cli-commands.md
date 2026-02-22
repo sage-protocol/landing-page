@@ -23,6 +23,8 @@ Complete command reference for the Sage CLI. Load this file only when you need t
 | `sage wallet balance` | Check SXXX and ETH balance |
 | `sage wallet faucet` | Request testnet SXXX tokens |
 | `sage wallet faucet --check` | Check faucet status/cooldown |
+| `sage wallet delegate` | Self-delegate SXXX voting power (ERC20Votes) |
+| `sage wallet delegate --check` | Check current delegate without sending tx |
 | `sage wallet connect privy` | Connect via OAuth (no key paste) |
 | `sage wallet connect privy --device-code` | Connect via login code flow (prints URL + code) |
 | `sage wallet connect privy --force --device-code` | Clear stale auth and start fresh login code flow |
@@ -97,6 +99,8 @@ If `sage skill search` is not available on your binary, use the `sage search ...
 | `sage governance proposals vote <id> for` | Vote for |
 | `sage governance proposals vote <id> against` | Vote against |
 | `sage governance proposals execute <id> --dao 0x...` | Execute passed proposal |
+
+Before token-governed DAO/proposal actions, run `sage wallet delegate` once for the active wallet.
 
 ### Operator (Auto-execution)
 

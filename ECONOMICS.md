@@ -205,6 +205,7 @@ sage capture status                     # RLM captures (contribute to activity)
 # Spending
 sage config ipfs balance                # IPFS credit balance
 sage config ipfs costs                  # Check pricing before upload/pin
+sage wallet delegate --check            # Verify voting-power delegation state
 sage governance dao create --name "X"   # Burns SXXX to create DAO
 
 # Governance
